@@ -5,6 +5,10 @@
 
 import streamlit as st
 from Bio.PDB import *
+from quantiprot.metrics.aaindex import get_aa2charge, get_aa2hydropathy
+import os
+import streamlit as st
+from Bio.SeqUtils.ProtParam import ProteinAnalysis
 
 def affinity():
     pdbl = PDBList()
@@ -100,12 +104,7 @@ def antigency():
 
     # In[51]:
 
-    from quantiprot.metrics.aaindex import get_aa2charge, get_aa2hydropathy
-    import os
-    # path = "C:\\Users\\funge\\Documents\\python\\"
-    # os.chdir(path)
-    import streamlit as st
-    from Bio.SeqUtils.ProtParam import ProteinAnalysis
+    
     file = ''
     uploaded_files = st.file_uploader("Choose a Protein File To Check Its Antigenicity : ", accept_multiple_files=True)
     for uploaded_file in uploaded_files:

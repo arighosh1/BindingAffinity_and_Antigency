@@ -19,7 +19,7 @@ st.markdown(
     """
     <style>
     .reportview-container {
-        background: url("""+basedir+""")
+        background: url(https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true)
     }
    .sidebar .sidebar-content {
         background: url("url_goes_here")

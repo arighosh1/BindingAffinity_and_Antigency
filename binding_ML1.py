@@ -14,27 +14,27 @@ import os
 
 basedir = os.path.dirname(os.path.abspath(__file__))
 basedir+="/icon.jpg"
-st.markdown(
+# st.markdown(
+#
+#     """
+#     <style>
+#     .reportview-container {
+#         background: url(https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true);
+#         height: 100%;
+#         background-position: center;
+#         background-repeat: no-repeat;
+#         background-size: cover;
+#     }
+#    .sidebar .sidebar-content {
+#         background: url("url_goes_here")
+#
+#     }
+#     </style>
+#     """,
+#     unsafe_allow_html=True
+# )
 
-    """
-    <style>
-    .reportview-container {
-        background: url(https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true);
-        height: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-   .sidebar .sidebar-content {
-        background: url("url_goes_here")
-        
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
+st.sidebar.image(img)
 st.sidebar.title("Chose From SlideBar")
 value = st.sidebar.slider("slide to 0 for  Affinity and 1 for Antigency",0,1)
 

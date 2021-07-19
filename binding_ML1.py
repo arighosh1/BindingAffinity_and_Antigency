@@ -23,6 +23,7 @@ st.markdown(
     }
    .sidebar .sidebar-content {
         background: url("url_goes_here")
+        background-repeat: no-repeat
     }
     </style>
     """,

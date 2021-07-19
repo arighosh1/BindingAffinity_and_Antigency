@@ -98,7 +98,7 @@ elif value==1:
 
             # In[53]:
 
-        st.write("Aliphatic Index Value Is : ",Aliphatic_index)
+        st.write("Antigenicity Value is : ",Aliphatic_index)
 
         # In[54]:
 

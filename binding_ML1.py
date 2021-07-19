@@ -19,11 +19,15 @@ st.markdown(
     """
     <style>
     .reportview-container {
-        background: url(https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true)
+        background: url(https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true);
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
    .sidebar .sidebar-content {
         background: url("url_goes_here")
-        background-repeat: no-repeat
+        
     }
     </style>
     """,

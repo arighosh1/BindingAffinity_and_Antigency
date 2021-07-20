@@ -28,7 +28,8 @@ st.markdown(
         background-size: cover;
     }
    .sidebar .sidebar-content {
-        background: url("url_goes_here")
+        background: url("url_goes_here");
+        background-color:powderblue;
 
     }
     </style>

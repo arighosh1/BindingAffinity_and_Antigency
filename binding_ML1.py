@@ -74,7 +74,7 @@ if value == 0:
         df_TR = pd.read_csv(file1)
         df_TS = pd.read_csv(file2)
 
-        st.write("Training Set Data : ",X_df_TS.shape,X_df_TR.shape)
+        st.write("Training Set Data : ")
         st.dataframe(df_TR)
         st.write("Testing Set Data : ")
         st.dataframe(df_TS)
@@ -102,11 +102,11 @@ if value == 0:
 
         # In[9]:
 
-
+        X_df_TR.shape, y_df_TR.shape
 
         # In[10]:
 
-        X_train, X_valid, Y_train, Y_valid = train_test_split(X_df_TR, y_df_TR, test_size=0.2, random_state=10)
+        X_train, X_valid, Y_train, Y_valid = train_test_split(X_df_TR, y_df_TR, test_size=0.2)
 
         # In[11]:
 
@@ -116,7 +116,7 @@ if value == 0:
 
         # In[12]:
 
-
+        X_df_TS.shape, y_df_TS.shape
 
         # # Optimized parameters
         # ## max_features = 'auto'
@@ -201,10 +201,6 @@ if value == 0:
 
         # In[31]:
 
-        st.write("Training Set Data : ")
-        st.dataframe(df_TR)
-        st.write("Testing Set Data : ")
-        st.dataframe(df_TS)
         # print("KNN predicted Vlue:", train_preds)
 
         st.write("KNN predicted Vlue:", train_preds)

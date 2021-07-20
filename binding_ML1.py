@@ -451,7 +451,7 @@ elif value == 1:
 
     # In[2]:
 
-    protein = st.text_input("Enter Protein file ")
+    protein = st.text_input("Enter Protein Sequence ")
 
     # calculate averaged Hopp score
     if len(protein) > 0:

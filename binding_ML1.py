@@ -106,7 +106,7 @@ if value == 0:
 
         # In[10]:
 
-        X_train, X_valid, Y_train, Y_valid = train_test_split(X_df_TR, y_df_TR, test_size=0.2)
+        X_train, X_valid, Y_train, Y_valid = train_test_split(X_df_TR, y_df_TR, test_size=0.2,random_state=123456)
 
         # In[11]:
 

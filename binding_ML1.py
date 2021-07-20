@@ -35,6 +35,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
  )
+value=st.sidebar.slider("Slide to 1 for Binding Affinity And 2 for Antigenicity",0,1,0)
 if value == 0:
     # !/usr/bin/env python
     # coding: utf-8

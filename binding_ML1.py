@@ -73,13 +73,19 @@ if value==0:
 
     # In[3]:
 
-    file1 = st.file_uploader("Refined : ", accept_multiple_files=False)
+    #file1 = st.file_uploader("Refined : ", accept_multiple_files=False)
     file2 = st.file_uploader("core : ", accept_multiple_files=False)
 
     a=1
     if a==1:
     # Read the data
+    for data in file2:
         df_TS = pd.read_csv(file2)
+    
+    st.write("Hello")
+    st.dataframe(df_TR)
+    st.write("done")
+
         st.write("Hello")
         st.write(df_TR)
         st.write("done")

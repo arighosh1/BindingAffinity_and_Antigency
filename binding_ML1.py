@@ -79,8 +79,8 @@ if value==0:
     a=1
     if a==1:
     # Read the data
-    for data in file2:
-        df_TS = pd.read_csv(file2)
+    for datas in file2:
+        df_TS = pd.read_csv(datas)
     
     st.write("Hello")
     st.dataframe(df_TR)

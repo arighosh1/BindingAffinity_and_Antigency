@@ -454,7 +454,6 @@ elif value == 1:
 
     # calculate averaged Hopp score
     if len(protein) > 0:
-        protein
         result = calc_hopp(protein, 7)
 
         # print averaged Hopp score result, from lowest to highest

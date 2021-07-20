@@ -304,7 +304,8 @@ elif value==1:
         st.write("(Avg Hopp Score Sorted, Peptide)")
         # for i in sorted(result, reverse=True):
         #     print ("{:.2f}".format(i[0]), "{}".format(i[1]))
-        st.dataframe(result)
+        result_1=sorted(result, reverse=True)
+        st.dataframe(result_1)
         # Plot desired range to show on the x axis.
         # Recommend to change starting position to 1 instead of 0
         x=range(1, 24)
@@ -329,8 +330,8 @@ elif value==1:
         st.write("(Avg Hopp Score Sorted, Peptide)")
         # for i in sorted(result_corr, reverse=True):
         #     print ("{:.2f}".format(i[0]), "{}".format(i[1]))
-        result_corr=sorted(result_corr, reverse=True)
-        st.dataframe(result_corr)
+        result_2=sorted(result_corr, reverse=True)
+        st.dataframe(result_2)
         y2=[x[0] for x in result_corr[0:23]]
         plt.plot(x, y2, "r-", x, y2, "ro")
         plt.xlabel("Amino Acid Position")
@@ -349,8 +350,8 @@ elif value==1:
         st.write("(Avg Hopp Score Sorted, Peptide)")
         # for i in sorted(result_corr_2, reverse=True):
         #     print ("{:.2f}".format(i[0]), "{}".format(i[1]))
-        result_corr_2=sorted(result_corr_2, reverse=True)
-        st.dataframe(result_corr_2)
+        result_3=sorted(result_corr_2, reverse=True)
+        st.dataframe(result_3)
         y3=[x[0] for x in result_corr_2[0:23]]
         plt.plot(x, y3, "r-", x, y3, "ro")
         plt.xlabel("Amino Acid Position")
@@ -401,8 +402,6 @@ elif value==1:
         # plt.legend(["Script", "Expasy"], loc="lower right")
 
         #plt.savefig("expassy_validate_weighted.png", dpi=300)
-
-
 
 
 

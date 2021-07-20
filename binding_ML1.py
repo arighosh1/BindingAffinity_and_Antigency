@@ -9,7 +9,7 @@ from Bio.SeqUtils.ProtParam import ProteinAnalysis
 from PIL import Image
 from quantiprot.metrics.aaindex import get_aa2charge, get_aa2hydropathy
 
- img = Image.open('icon.jpeg')
+ img = Image.open("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true")
  st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
                    layout='wide', initial_sidebar_state='auto')
 import os

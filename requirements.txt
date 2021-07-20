@@ -82,7 +82,6 @@ notebook==6.4.0
 numpy==1.21.0
 oauthlib==3.1.1
 obonet==0.3.0
-openbabel @ file:///C:/Users/Arslan/Downloads/openbabel-3.1.1-cp39-cp39-win_amd64.whl
 opencv-python==4.5.2.54
 opt-einsum==3.3.0
 packaging==21.0
@@ -145,7 +144,6 @@ tabulate==0.8.9
 termcolor==1.1.0
 terminado==0.10.1
 testpath==0.5.0
--e git+https://gitlab.com/cheminfIBB/tfbio@15c08adc13806ecbb07d05e93a9a4bff1f975cd2#egg=tfbio
 threadpoolctl==2.1.0
 toml==0.10.2
 toolz==0.11.1

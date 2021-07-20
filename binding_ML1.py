@@ -77,7 +77,7 @@ elif value==1:
     uploaded_files = st.file_uploader("Choose a Protein File To Check Its Antigenicity : ", accept_multiple_files=True)
     for uploaded_file in uploaded_files:
         file = uploaded_file.read()
-
+    st.write(file)
     if file != '':
         X = ProteinAnalysis(str(file))
 

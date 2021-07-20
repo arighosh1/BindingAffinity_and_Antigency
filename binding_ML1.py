@@ -184,7 +184,10 @@ if value == 0:
         Pred_y = pd.DataFrame({'Y_pred_rf': Y_pred_test_rf})
         Exp_y = pd.DataFrame(y_df_TS)
         Prediction = pd.concat([Exp_y, Pred_y], axis=1)
-        Prediction.to_excel('RF_test_Pred_Values_Int_Frag.xls')
+        Prediction.to_excel('RF_test_Pred_Values_Int_Frag.csv')
+        
+        st.write("Test Prediction Result of RandomForestRegressor :")
+        st.dataframe(Prediction)
 
         # In[34]:
 

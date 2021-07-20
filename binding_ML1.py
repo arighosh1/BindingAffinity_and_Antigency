@@ -9,9 +9,9 @@ from Bio.SeqUtils.ProtParam import ProteinAnalysis
 from PIL import Image
 from quantiprot.metrics.aaindex import get_aa2charge, get_aa2hydropathy
 
-# img = Image.open('icon.jpeg')
-# st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
-#                    layout='wide', initial_sidebar_state='auto')
+ img = Image.open('icon.jpeg')
+ st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
+                   layout='wide', initial_sidebar_state='auto')
 import os
 #
 # basedir = os.path.dirname(os.path.abspath(__file__))

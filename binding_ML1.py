@@ -9,33 +9,42 @@ from Bio.SeqUtils.ProtParam import ProteinAnalysis
 from PIL import Image
 from quantiprot.metrics.aaindex import get_aa2charge, get_aa2hydropathy
 
-img = Image.open('icon.jpeg')
-st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
-                   layout='wide', initial_sidebar_state='auto')
+# img = Image.open('icon.jpeg')
+# st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
+#                    layout='wide', initial_sidebar_state='auto')
 import os
-
-basedir = os.path.dirname(os.path.abspath(__file__))
-basedir += "/icon.jpg"
+#
+# basedir = os.path.dirname(os.path.abspath(__file__))
+# basedir += "/icon.jpg"
+# st.markdown(
+#
+#     """
+#     <style>
+#     .reportview-container {
+#         background-color: #003366;
+#
+#     }
+#    .sidebar .sidebar-content {{
+#                 background-color: #003366;
+#             }}
+#     </style>
+#     """,
+#     unsafe_allow_html=True
+#  )
 st.markdown(
-
-    """
-    <style>
-    .reportview-container {
-        background: url();
-        height: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-   .sidebar .sidebar-content {
-        background: url("url_goes_here");
-        background-color:powderblue;
-
-    }
-    </style>
-    """,
+    '''
+        <style>
+            @media (max-width: 991.98px)
+            {
+                .sidebar .sidebar-content 
+                {
+                    background-color: #003366;
+                }
+            }
+        </style>
+    ''',
     unsafe_allow_html=True
- )
+)
 st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true")
 value=st.sidebar.slider("Slide to 1 for Binding Affinity And 2 for Antigenicity",0,1,0)
 if value == 0:

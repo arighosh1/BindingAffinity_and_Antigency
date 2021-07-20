@@ -10,7 +10,7 @@ from PIL import Image
 from quantiprot.metrics.aaindex import get_aa2charge, get_aa2hydropathy
 from PIL import Image
 img = Image.open('icon.jpeg')
-st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon='"https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true"',
+st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
                    layout='wide', initial_sidebar_state='auto')
 import os
 #

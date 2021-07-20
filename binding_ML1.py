@@ -79,12 +79,11 @@ if value==0:
     a=1
     if a==1:
     # Read the data
-    for datas in file2:
-        df_TS = pd.read_csv(datas)
-    
-    st.write("Hello")
-    st.dataframe(df_TR)
-    st.write("done")
+        df = pd.read_csv(file2)
+
+        st.write("Hello")
+        st.dataframe(df)
+        st.write("done")
 
         st.write("Hello")
         st.write(df_TR)

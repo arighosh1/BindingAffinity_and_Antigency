@@ -74,6 +74,18 @@ if value == 0:
     from math import sqrt
     import pandas as pd
     import numpy as np
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.model_selection import train_test_split
+    from sklearn.metrics import r2_score
+    from sklearn.metrics import mean_squared_error
+    from sklearn.metrics import mean_absolute_error
+    from sklearn import model_selection
+    from scipy.stats import spearmanr
+    from scipy.stats import pearsonr
+    import math
+    from math import sqrt
+    import pandas as pd
+    import numpy as np
 
     # In[3]:
 
@@ -85,25 +97,13 @@ if value == 0:
         df_TR = pd.read_csv(file1)
         df_TS = pd.read_csv(file2)
 
-        st.write("Training Set Data : ")
-        st.dataframe(df_TR)
-        st.write("Testing Set Data : ")
-        st.dataframe(df_TS)
+        # st.write("Training Set Data : ")
+        # st.dataframe(df_TR)
+        # st.write("Testing Set Data : ")
+        # st.dataframe(df_TS)
         # In[4]:
 
-        # df_TR.shape
-        #
-        # # In[5]:
-        #
-        # df_TS.shape
-        #
-        # # In[6]:
-        #
-        # df_TR.head()
-        #
-        # # In[7]:
-        #
-        # df_TS.head()
+
 
         # In[8]:
 
@@ -113,7 +113,7 @@ if value == 0:
 
         # In[9]:
 
-        X_df_TR.shape, y_df_TR.shape
+        # X_df_TR.shape, y_df_TR.shape
 
         # In[10]:
 
@@ -126,8 +126,6 @@ if value == 0:
         X_df_TS = df_TS.drop(['PDB_ID', 'Resolution', 'pKd'], axis=1)
 
         # In[12]:
-
-        X_df_TS.shape, y_df_TS.shape
 
         # # Optimized parameters
         # ## max_features = 'auto'
@@ -165,7 +163,6 @@ if value == 0:
         # scores_RF_train
 
         # In[15]:
-
         # Calculate statistics for test set (Core set) based on RF model
         scores = {}
         for m in models_RF_train:
@@ -184,10 +181,9 @@ if value == 0:
         Pred_y = pd.DataFrame({'Y_pred_rf': Y_pred_test_rf})
         Exp_y = pd.DataFrame(y_df_TS)
         Prediction = pd.concat([Exp_y, Pred_y], axis=1)
-        Prediction.to_excel('RF_test_Pred_Values_Int_Frag.csv')
-        
-        st.write("Test Prediction Result of RandomForestRegressor :")
-        st.dataframe(Prediction)
+        st.title("Test Prediction Result of RandomForestRegressor.")
+        st.write(Prediction)
+
 
         # In[34]:
 
@@ -217,8 +213,8 @@ if value == 0:
 
         # print("KNN predicted Vlue:", train_preds)
 
-        st.write("KNN predicted Vlue:", train_preds)
-
+        st.title("KNN predicted Value:")
+        st.write(train_preds)
         # In[33]:
 
         mse = mean_squared_error(YT_array, train_preds)

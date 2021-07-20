@@ -83,8 +83,7 @@ if value==0:
         df_TR = pd.read_csv(file1)
         df_TS = pd.read_csv(file2)
         st.write("Hello")
-        st.dataframe(df_TR)
-        st.dataframe(df_TS)
+        st.write(df_TR)
 
 
         # In[4]:

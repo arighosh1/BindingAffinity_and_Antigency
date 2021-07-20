@@ -552,6 +552,7 @@ elif value == 1:
         # plt.legend(["Script", "Expasy"], loc="lower right")
 
         # plt.savefig("expassy_validate_weighted.png", dpi=300)
+        st.write("If the positive score is >80% then the entered protein is antigenic otherwise non-antigenic.")
 
 
 

@@ -35,6 +35,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
  )
+st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true")
 value=st.sidebar.slider("Slide to 1 for Binding Affinity And 2 for Antigenicity",0,1,0)
 if value == 0:
     # !/usr/bin/env python

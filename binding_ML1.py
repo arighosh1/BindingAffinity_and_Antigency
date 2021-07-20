@@ -41,32 +41,231 @@ value = st.sidebar.slider("slide to 0 for  Affinity and 1 for Antigency",0,1)
 
 
 if value==0:
-    filename = st.file_uploader("Choose a  File To Check Its Binding Affinity : ", accept_multiple_files=False)
-    if filename != None:
-        st.title("Uploaded File Data Is")
+    #!/usr/bin/env python
+    # coding: utf-8
 
-        genedata = pd.read_csv(filename)
-        genedata.head(5)
-        st.dataframe(genedata)
+    # In[1]:
 
-        x = genedata.iloc[:, 1].values
-        y = genedata.iloc[:, 3].values
-        train_features, test_features, train_labels, test_labels = train_test_split(x, y, test_size=0.25,
-                                                                                    random_state=42)
 
-        st.title("Training Set Information.")
+    import os
+    import warnings
+    warnings.filterwarnings("ignore")
 
-        st.write('Training Features Shape : ', train_features.shape)
-        st.write('Training Labels Shape : ', train_labels.shape)
-        st.write('Testing Features Shape : ', test_features.shape)
-        st.write('Testing Labels Shape : ', test_labels.shape)
 
-        st.title("Binding Affintiy.")
-        st.write("binding Affinity of protein and ligand:", test_features)
+    # In[2]:
 
-        # sns.distplot(random.binomial(n=genedata.kjmol, p=0.5), hist=False, label='binomial')
-        # sns.distplot(random.poisson(lam=test_features), hist=False, label='poisson')
-        # st.write(plt.show())
+
+    #import libraries
+    import streamlit as st
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.model_selection import train_test_split
+    from sklearn.metrics import r2_score
+    from sklearn.metrics import mean_squared_error
+    from sklearn.metrics import mean_absolute_error
+    from sklearn import model_selection
+    from scipy.stats import spearmanr
+    from scipy.stats import pearsonr
+    import math
+    from math import sqrt
+    import pandas as pd
+    import numpy as np
+
+
+    # In[3]:
+
+    file1 = st.file_uploader("Refined : ", accept_multiple_files=False)
+    file2 = st.file_uploader("core : ", accept_multiple_files=False)
+
+
+
+    if file2 != None:
+    # Read the data
+        df_TR = pd.read_csv(file1)
+        df_TS = pd.read_csv(file2)
+        st.write("Hello")
+        st.dataframe(df_TR)
+        st.dataframe(df_TS)
+
+
+        # In[4]:
+
+
+        df_TR.shape
+
+
+        # In[5]:
+
+
+        df_TS.shape
+
+
+        # In[6]:
+
+
+        df_TR.head()
+
+
+        # In[7]:
+
+
+        df_TS.head()
+
+
+        # In[8]:
+
+
+        # Traning Sets
+        y_df_TR = df_TR['pKd']
+        X_df_TR = df_TR.drop(['PDB_ID', 'Resolution', 'pKd'], axis=1)
+
+
+        # In[9]:
+
+
+        X_df_TR.shape, y_df_TR.shape
+
+
+        # In[10]:
+
+
+        X_train, X_valid, Y_train, Y_valid = train_test_split(X_df_TR, y_df_TR, test_size=0.2, random_state=123456)
+
+
+        # In[11]:
+
+
+        # Test Sets
+        y_df_TS = df_TS['pKd']
+        X_df_TS = df_TS.drop(['PDB_ID', 'Resolution', 'pKd'], axis=1)
+
+
+        # In[12]:
+
+
+        X_df_TS.shape, y_df_TS.shape
+
+
+        # # Optimized parameters
+        # ## max_features = 'auto'
+        # ## n_estimators=100
+        # ## random_state = 1234
+
+        # In[13]:
+
+
+        models_RF_train = {"RF": RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
+                              max_features='auto', max_leaf_nodes=None,
+                              min_impurity_decrease=0.0, min_impurity_split=None,
+                              min_samples_leaf=1, min_samples_split=2,
+                              min_weight_fraction_leaf=0.0, n_estimators=100,
+                              n_jobs=None, oob_score=False, random_state=1234,
+                              verbose=0, warm_start=False)}
+
+
+        # In[14]:
+
+
+        # Calculate the Training and Validation (Refined set) statistics
+        scores = {}
+        for m in models_RF_train:
+            models_RF_train[m].fit(X_train, Y_train)
+            scores[m + "_train_r2"] = models_RF_train[m].score(X_train, Y_train)
+            Y_pred_valid_rf = models_RF_train[m].predict(X_valid)
+            Y_pred_train_rf = models_RF_train[m].predict(X_train)
+            scores[m + "_rmse_train"] = sqrt(mean_squared_error(Y_train, Y_pred_train_rf))
+            scores[m + "_mae_train"] = mean_absolute_error(Y_train, Y_pred_train_rf)
+            scores[m + "_pcc_train"] = pearsonr(Y_train, Y_pred_train_rf)
+            scores[m + "_valid_r2"] = r2_score(Y_valid, Y_pred_valid_rf)
+            scores[m + "_rmse_valid"] = sqrt(mean_squared_error(Y_valid, Y_pred_valid_rf))
+            scores[m + "_mae_valid"] = mean_absolute_error(Y_valid, Y_pred_valid_rf)
+            scores[m + "_pcc_valid"] = pearsonr(Y_valid, Y_pred_valid_rf)
+
+        scores_RF_train = pd.Series(scores).T
+        scores_RF_train
+
+
+        # In[15]:
+
+
+        # Calculate statistics for test set (Core set) based on RF model
+        scores = {}
+        for m in models_RF_train:
+            Y_pred_test_rf = models_RF_train[m].predict(X_df_TS)
+            scores[m + "_test_r2"] = r2_score(y_df_TS, Y_pred_test_rf)
+            scores[m + "_rmse_test"] = sqrt(mean_squared_error(y_df_TS, Y_pred_test_rf))
+            scores[m + "_mae_test"] = mean_absolute_error(y_df_TS, Y_pred_test_rf)
+            scores[m + "_pcc_test"] = pearsonr(y_df_TS, Y_pred_test_rf)
+
+        scores_RF_test = pd.Series(scores).T
+        scores_RF_test
+
+
+        # In[16]:
+
+
+        # Save the test prediction result
+        Pred_y = pd.DataFrame({'Y_pred_rf': Y_pred_test_rf})
+        Exp_y = pd.DataFrame(y_df_TS)
+        Prediction = pd.concat([Exp_y, Pred_y],axis=1)
+        Prediction.to_excel('RF_test_Pred_Values_Int_Frag.xls')
+
+
+        # In[34]:
+
+
+        YV_array = np.array(Y_valid)
+        YT_array = np.array(Y_train)
+        XV_array = np.array(X_valid)
+        XT_array = np.array(X_train)
+
+
+        # In[24]:
+
+
+        from sklearn.neighbors import KNeighborsRegressor
+        knn_model = KNeighborsRegressor(n_neighbors=3)
+
+
+        # In[25]:
+
+
+        knn_model.fit(XT_array, YT_array)
+
+
+        # In[27]:
+
+
+        from sklearn.metrics import mean_squared_error
+        from math import sqrt
+        train_preds = knn_model.predict(XT_array)
+
+
+        # In[31]:
+
+
+        st.write("KNN predicted Vlue:",train_preds)
+        # print(len(train_preds))
+
+        # In[33]:
+
+
+        mse = mean_squared_error(YT_array, train_preds)
+        rmse = sqrt(mse)
+        st.write("RMSE_train KNN:", rmse)
+
+
+        # In[ ]:
+
+
+
+
+
+        # In[ ]:
+
+
+
+
+
 elif value==1:
     import streamlit as st
     #!/usr/bin/env python

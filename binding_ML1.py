@@ -89,7 +89,7 @@ if value == 0:
 
     # In[3]:
 
-    file1 = st.file_uploader("Upload File Containing PDB_ID(Training Set) : ", accept_multiple_files=False)
+    file1 = st.file_uploader("Training set 3481 PDB_IDs.csv")
     file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
 
     if file1 != None and file2 != None:

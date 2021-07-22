@@ -90,7 +90,7 @@ if value == 0:
 
     # In[3]:
 
-    file = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
+    file = st.file_uploader("Upload CSV File : ", accept_multiple_files=False)
 
     if file != None:
         # Read the data
@@ -181,7 +181,7 @@ if value == 0:
         Pred_y = pd.DataFrame({'Y_pred_rf': Y_pred_test_rf})
         Exp_y = pd.DataFrame(y_df_TS)
         Prediction = pd.concat([Exp_y, Pred_y], axis=1)
-        st.title("Test Prediction Result of RandomForestRegressor.")
+        st.title("Result of RandomForestRegressor.")
         st.write(Prediction)
 
 
@@ -213,7 +213,7 @@ if value == 0:
 
         # print("KNN predicted Vlue:", train_preds)
 
-        st.title("KNN predicted Value:")
+        st.title("Result of KNN : ")
         Pred_y = pd.DataFrame({'Y_pred_KNN': train_preds})
         Exp_y = pd.DataFrame(y_df_TS)
         Prediction = pd.concat([Exp_y, Pred_y], axis=1)

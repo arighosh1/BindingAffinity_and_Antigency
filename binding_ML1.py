@@ -88,8 +88,11 @@ if value == 0:
     import numpy as np
 
     # In[3]:
+    from pathlib import Path
+    path = "Training set 3481 PDB_IDs.csv"
+    file_path = Path(path)
 
-    file1 = st.file_uploader("Training set 3481 PDB_IDs.csv")
+    file1 = st.file_uploader(file_path)
     file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
 
     if file1 != None and file2 != None:

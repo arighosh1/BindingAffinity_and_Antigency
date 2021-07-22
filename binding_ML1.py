@@ -9,9 +9,9 @@ from Bio.SeqUtils.ProtParam import ProteinAnalysis
 from PIL import Image
 from quantiprot.metrics.aaindex import get_aa2charge, get_aa2hydropathy
 from PIL import Image
-img = Image.open('icon.jpeg')
-st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
-                   layout='wide', initial_sidebar_state='auto')
+# img = Image.open('icon.jpeg')
+# st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
+#                    layout='wide', initial_sidebar_state='auto')
 # import os
 # #
 # basedir = os.path.dirname(os.path.abspath(__file__))
@@ -89,10 +89,11 @@ if value == 0:
     import requests
 
     # In[3]:
-    
-    file1 = st.file_uploader("Upload CSV File(Testing Set) : ", accept_multiple_files=False)
-    file2 = st.file_uploader("Upload CSV File(Testing Set) : ", accept_multiple_files=False)
-    if file1 != None and file2!=None:
+
+    file1 = st.file_uploader("Upload File Containing PDB_ID(Training Set) : ", accept_multiple_files=False)
+    file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
+
+    if file1 != None and file2!=None :
         # Read the data
         df_TR = pd.read_csv(file1)
         df_TS = pd.read_csv(file2)
@@ -181,7 +182,7 @@ if value == 0:
         Pred_y = pd.DataFrame({'Y_pred_rf': Y_pred_test_rf})
         Exp_y = pd.DataFrame(y_df_TS)
         Prediction = pd.concat([Exp_y, Pred_y], axis=1)
-        st.title("Result of RandomForestRegressor.")
+        st.title("Test Prediction Result of RandomForestRegressor.")
         st.write(Prediction)
 
 
@@ -196,7 +197,7 @@ if value == 0:
 
         from sklearn.neighbors import KNeighborsRegressor
 
-        knn_model = KNeighborsRegressor(n_neighbors=3)
+        knn_model = KNeighborsRegressor(n_neighbors=10)
 
         # In[25]:
 
@@ -213,7 +214,7 @@ if value == 0:
 
         # print("KNN predicted Vlue:", train_preds)
 
-        st.title("Result of KNN : ")
+        st.title("KNN predicted Value:")
         Pred_y = pd.DataFrame({'Y_pred_KNN': train_preds})
         Exp_y = pd.DataFrame(y_df_TS)
         Prediction = pd.concat([Exp_y, Pred_y], axis=1)

@@ -196,7 +196,7 @@ if value == 0:
 
         from sklearn.neighbors import KNeighborsRegressor
 
-        knn_model = KNeighborsRegressor(n_neighbors=10)
+        knn_model = KNeighborsRegressor(n_neighbors=3)
 
         # In[25]:
 

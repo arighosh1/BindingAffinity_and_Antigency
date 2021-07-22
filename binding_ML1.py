@@ -88,9 +88,6 @@ if value == 0:
     import numpy as np
 
     # In[3]:
-    from pathlib import Path
-    f = open("Training set 3481 PDB_IDs.csv", "r")
-
     file1 = pd.read_csv(basedir)
     file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
 

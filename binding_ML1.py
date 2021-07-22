@@ -89,13 +89,13 @@ if value == 0:
     import requests
 
     # In[3]:
+    file1 = st.file_uploader("Upload CSV File(Testing Set) : ", accept_multiple_files=False)
+    file2 = st.file_uploader("Upload CSV File(Testing Set) : ", accept_multiple_files=False)
 
-    file = st.file_uploader("Upload CSV File : ", accept_multiple_files=False)
-
-    if file != None:
+    if file1 != None and file2!=None:
         # Read the data
-        df_TR = pd.read_csv("https://raw.githubusercontent.com/arighosh1/BindingAffinity_and_Antigency/main/Training%20set%203481%20PDB_IDs.csv")
-        df_TS = pd.read_csv(file)
+        df_TR = pd.read_csv(file1)
+        df_TS = pd.read_csv(file2)
 
         # st.write("Training Set Data : ")
         # st.dataframe(df_TR)

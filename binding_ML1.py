@@ -12,8 +12,8 @@ from PIL import Image
 img = Image.open('icon.jpeg')
 st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
                    layout='wide', initial_sidebar_state='auto')
-import os
-#
+# import os
+# #
 # basedir = os.path.dirname(os.path.abspath(__file__))
 # basedir += "/Training set 3481 PDB_IDs.csv"
 # st.markdown(
@@ -196,7 +196,7 @@ if value == 0:
 
         from sklearn.neighbors import KNeighborsRegressor
 
-        knn_model = KNeighborsRegressor(n_neighbors=3)
+        knn_model = KNeighborsRegressor(n_neighbors=10)
 
         # In[25]:
 
@@ -207,17 +207,20 @@ if value == 0:
         from sklearn.metrics import mean_squared_error
         from math import sqrt
 
-        train_preds = knn_model.predict(XT_array)
+        train_preds = knn_model.predict(XV_array)
 
         # In[31]:
 
         # print("KNN predicted Vlue:", train_preds)
 
         st.title("KNN predicted Value:")
-        st.write(train_preds)
+        Pred_y = pd.DataFrame({'Y_pred_KNN': train_preds})
+        Exp_y = pd.DataFrame(y_df_TS)
+        Prediction = pd.concat([Exp_y, Pred_y], axis=1)
+        st.write(Prediction)
         # In[33]:
 
-        mse = mean_squared_error(YT_array, train_preds)
+        mse = mean_squared_error(YV_array, train_preds)
         rmse = sqrt(mse)
         # print("RMSE_train KNN:", rmse)
 

@@ -14,8 +14,8 @@ st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE L
                    layout='wide', initial_sidebar_state='auto')
 import os
 #
-# basedir = os.path.dirname(os.path.abspath(__file__))
-# basedir += "/icon.jpg"
+basedir = os.path.dirname(os.path.abspath(__file__))
+basedir += "/Training set 3481 PDB_IDs.csv"
 # st.markdown(
 #
 #     """
@@ -89,10 +89,9 @@ if value == 0:
 
     # In[3]:
     from pathlib import Path
-    path = "Training set 3481 PDB_IDs.csv"
-    file_path = Path(path)
+    f = open("Training set 3481 PDB_IDs.csv", "r")
 
-    file1 = st.file_uploader(file_path)
+    file1 = pd.read_csv(basedir)
     file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
 
     if file1 != None and file2 != None:

@@ -89,12 +89,12 @@ if value == 0:
     import requests
 
     # In[3]:
-    file1 = st.file_uploader("Upload CSV File(Testing Set) : ", accept_multiple_files=False)
+    
     file2 = st.file_uploader("Upload CSV File(Testing Set) : ", accept_multiple_files=False)
 
     if file1 != None and file2!=None:
         # Read the data
-        df_TR = pd.read_csv(file1)
+#         df_TR = pd.read_csv(file1)
         df_TS = pd.read_csv(file2)
 
         # st.write("Training Set Data : ")

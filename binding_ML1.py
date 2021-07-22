@@ -207,7 +207,7 @@ if value == 0:
         from sklearn.metrics import mean_squared_error
         from math import sqrt
 
-        train_preds = knn_model.predict(XT_array)
+        train_preds = knn_model.predict(XV_array)
 
         # In[31]:
 
@@ -217,7 +217,7 @@ if value == 0:
         st.write(train_preds)
         # In[33]:
 
-        mse = mean_squared_error(YT_array, train_preds)
+        mse = mean_squared_error(YV_array, train_preds)
         rmse = sqrt(mse)
         # print("RMSE_train KNN:", rmse)
 

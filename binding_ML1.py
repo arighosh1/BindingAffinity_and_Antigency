@@ -14,8 +14,8 @@ st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE L
                    layout='wide', initial_sidebar_state='auto')
 import os
 #
-basedir = os.path.dirname(os.path.abspath(__file__))
-basedir += "/Training set 3481 PDB_IDs.csv"
+# basedir = os.path.dirname(os.path.abspath(__file__))
+# basedir += "/Training set 3481 PDB_IDs.csv"
 # st.markdown(
 #
 #     """
@@ -86,15 +86,16 @@ if value == 0:
     from math import sqrt
     import pandas as pd
     import numpy as np
+    import requests
 
     # In[3]:
-    file1 = pd.read_csv(basedir)
-    file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
 
-    if file1 != None and file2 != None:
+    file = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
+
+    if file != None:
         # Read the data
-        df_TR = pd.read_csv(file1)
-        df_TS = pd.read_csv(file2)
+        df_TR = pd.read_csv("https://raw.githubusercontent.com/arighosh1/BindingAffinity_and_Antigency/main/Training%20set%203481%20PDB_IDs.csv")
+        df_TS = pd.read_csv(file)
 
         # st.write("Training Set Data : ")
         # st.dataframe(df_TR)

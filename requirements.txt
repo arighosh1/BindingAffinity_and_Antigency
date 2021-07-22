@@ -85,6 +85,7 @@ pandas==1.2.4
 pandocfilters==1.4.3
 parso==0.8.2
 pathtools==0.1.2
+pathlib==1.0.1
 phonenumberslite==8.12.24
 pickleshare==0.7.5
 Pillow==8.2.0

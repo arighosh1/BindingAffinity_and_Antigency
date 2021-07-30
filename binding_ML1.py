@@ -9,8 +9,8 @@ from Bio.SeqUtils.ProtParam import ProteinAnalysis
 from PIL import Image
 from quantiprot.metrics.aaindex import get_aa2charge, get_aa2hydropathy
 from PIL import Image
-# img = Image.open('icon.jpeg')
-# st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
+img = Image.open('icon.jpeg')
+st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,
 #                    layout='wide', initial_sidebar_state='auto')
 # import os
 # #
@@ -455,7 +455,6 @@ elif value == 1:
     # In[2]:
 
     protein = st.text_input("Enter Protein Sequence ")
-
     # calculate averaged Hopp score
     if len(protein) > 0:
         result = calc_hopp(protein, 7)
@@ -513,7 +512,12 @@ elif value == 1:
         plt.plot(x, y3, "r-", x, y3, "ro")
         plt.xlabel("Amino Acid Position")
         plt.ylabel("Hydrophilicity Score")
-        plt.savefig("234")
+        fig = plt.gcf()
+        window_width=st.slider("Slide to Adjust Width", 6, 12, 6)
+        window_height = st.slider("Slide to Adjust Height", 6, 12, 6)
+        fig.set_size_inches(window_width,window_height)
+        fig.savefig("234", dpi=100)
+
         st.image("234.png")
         # ## Validating against Expasy Result
 

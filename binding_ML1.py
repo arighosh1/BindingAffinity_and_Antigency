@@ -456,7 +456,9 @@ elif value == 1:
     protein = st.text_input("Enter Protein Sequence ")
     # calculate averaged Hopp score
     if len(protein) > 0:
-        result = calc_hopp(protein, 7)
+        pep_length=st.slider("Window Size : ",7,10,7)
+        alpha=st.slider("Alpha value : ",1,5,1)
+        result = calc_hopp(protein, pep_length,alpha)
 
         # print averaged Hopp score result, from lowest to highest
         st.write("(Avg Hopp Score Sorted, Peptide)")
@@ -481,41 +483,37 @@ elif value == 1:
         # Same protein and window
 
         # In[3]:
-
-        result_corr = calc_hopp(protein, 7, alpha=0.1)
-
-        st.write("(Avg Hopp Score Sorted, Peptide)")
-        # for i in sorted(result_corr, reverse=True):
-        #     print ("{:.2f}".format(i[0]), "{}".format(i[1]))
-        result_2 = sorted(result_corr, reverse=True)
-        st.dataframe(result_2)
-        y2 = [x[0] for x in result_corr[0:23]]
-        plt.plot(x, y2, "r-", x, y2, "ro")
-        plt.xlabel("Amino Acid Position")
-        plt.ylabel("Hydrophilicity Score")
-
-        # ### Example 3: Computed Hopp-Woods Scores Weighted by Linear Variation Model (window=10, $\alpha=0.1$)
         #
-        # Same protein
-
-        # In[4]:
-
-        result_corr_2 = calc_hopp(protein, 10, alpha=0.1)
-
-        st.write("(Avg Hopp Score Sorted, Peptide)")
-        # for i in sorted(result_corr_2, reverse=True):
-        #     print ("{:.2f}".format(i[0]), "{}".format(i[1]))
-        result_3 = sorted(result_corr_2, reverse=True)
-        st.dataframe(result_3)
-        y3 = [x[0] for x in result_corr_2[0:23]]
-        plt.plot(x, y3, "r-", x, y3, "ro")
-        plt.xlabel("Amino Acid Position")
-        plt.ylabel("Hydrophilicity Score")
-        fig = plt.gcf()
-        window_width=st.slider("Slide to Adjust Width", 6, 12, 6)
-        window_height = st.slider("Slide to Adjust Height", 6, 12, 6)
-        fig.set_size_inches(window_width,window_height)
-        fig.savefig("234", dpi=100)
+        # result_corr = calc_hopp(protein, 7, alpha=0.1)
+        #
+        # st.write("(Avg Hopp Score Sorted, Peptide)")
+        # # for i in sorted(result_corr, reverse=True):
+        # #     print ("{:.2f}".format(i[0]), "{}".format(i[1]))
+        # result_2 = sorted(result_corr, reverse=True)
+        # st.dataframe(result_2)
+        # y2 = [x[0] for x in result_corr[0:23]]
+        # plt.plot(x, y2, "r-", x, y2, "ro")
+        # plt.xlabel("Amino Acid Position")
+        # plt.ylabel("Hydrophilicity Score")
+        #
+        # # ### Example 3: Computed Hopp-Woods Scores Weighted by Linear Variation Model (window=10, $\alpha=0.1$)
+        # #
+        # # Same protein
+        #
+        # # In[4]:
+        #
+        # result_corr_2 = calc_hopp(protein, 10, alpha=0.1)
+        #
+        # st.write("(Avg Hopp Score Sorted, Peptide)")
+        # # for i in sorted(result_corr_2, reverse=True):
+        # #     print ("{:.2f}".format(i[0]), "{}".format(i[1]))
+        # result_3 = sorted(result_corr_2, reverse=True)
+        # st.dataframe(result_3)
+        # y3 = [x[0] for x in result_corr_2[0:23]]
+        # plt.plot(x, y3, "r-", x, y3, "ro")
+        # plt.xlabel("Amino Acid Position")
+        # plt.ylabel("Hydrophilicity Score")
+        plt.savefig("234", dpi=100)
 
         st.image("234.png")
         # ## Validating against Expasy Result

@@ -34,7 +34,6 @@ nbformat==5.1.3
 nest-asyncio==1.5.1
 notebook==6.4.0
 packaging==21.0
-pandas==1.3.0
 pandocfilters==1.4.3
 parso==0.8.2
 patsy==0.5.1

@@ -1,3 +1,6 @@
+
+
+
 import pandas as pd
 import matplotlib.pyplot as plt
 from numpy import random
@@ -45,7 +48,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true")
-value=st.sidebar.slider("Slide to 1 for Binding Affinity And 2 for Antigenicity",0,1,0)
+value=st.sidebar.slider("Slide to 0 for Binding Affinity And 1 for Antigenicity and 2 for covid Immune",0,2,0)
 if value == 0:
     # !/usr/bin/env python
     # coding: utf-8
@@ -557,6 +560,598 @@ elif value == 1:
 
         # plt.savefig("expassy_validate_weighted.png", dpi=300)
         st.write("If the positive score is >80% then the entered protein is antigenic otherwise non-antigenic.")
+
+
+
+
+
+elif value == 2:
+
+
+    import pandas as pd
+    import numpy as np
+    from pymatch.Matcher import Matcher
+    import re
+    from tqdm.autonotebook import tqdm
+    import warnings
+    from IPython.testing.globalipapp import get_ipython
+    import streamlit as st
+
+
+    tqdm.pandas()
+
+
+    warnings.filterwarnings('ignore')
+
+    ip=get_ipython()
+    ip.run_line_magic('matplotlib', 'inline')
+
+    # Fixed seed for reproducibility
+    np.random.seed(4072021)
+
+    # print(f"Python version: {sys.version}")
+    # print(f"OS version: {platform.platform()}")
+    # print(f"pandas version: {pd.__version__}")
+    # print(f"numpy version: {np.__version__}")
+    # print(f"scipy version: {scipy.__version__}")
+    # print(f"statsmodels version: {statsmodels.__version__}")
+
+
+    # In[4]:
+
+    vac = st.file_uploader("Enter your (VAX FILE) : ")
+    rec = st.file_uploader("Enter your (DATA FILE) : ")
+    sym = st.file_uploader("Enter your (SYMPTOMS FILE) : ")
+    if(vac!=None and rec!=None and sym!=None):
+        vax_frames = []
+
+        df = pd.read_csv(vac, index_col=None, header=0, encoding="latin")
+        vax_frames.append(df)
+
+        vax = pd.concat(vax_frames, axis=0, ignore_index=True)[["VAERS_ID", "VAX_TYPE"]]
+        vax["VAX_TYPE"] = vax["VAX_TYPE"] == "COVID19"
+        vax.columns = ["VAERS_ID", "IS_COVID_VACCINE"]
+
+
+        # In[3]:
+
+
+
+
+        recipient_frames = []
+
+        df = pd.read_csv(rec, index_col=None, header=0, encoding="latin")
+        recipient_frames.append(df)
+
+        recipients = pd.concat(recipient_frames, axis=0, ignore_index=True)[["VAERS_ID", "SEX", "CAGE_YR"]]
+
+
+        # In[5]:
+
+
+        age_bands = {0: "<18",
+                     18: "18-25",
+                     26: "26-40",
+                     41: "41-55",
+                     56: "56-70",
+                     71: ">70",
+                     int(recipients.CAGE_YR.max()): "max"}
+
+        recipients["AGE"] = pd.cut(recipients.CAGE_YR, bins=list(age_bands.keys()), labels=list(age_bands.values())[:-1])
+        recipients = recipients.drop("CAGE_YR", axis=1).dropna()
+
+
+        # In[6]:
+
+
+
+        symptoms_frames = []
+
+        df = pd.read_csv(sym, index_col=None, header=0)
+        symptoms_frames.append(df)
+
+
+        symptoms = pd.melt(pd.concat(symptoms_frames, axis=0, ignore_index=True)[["VAERS_ID", "SYMPTOM1", "SYMPTOM2", "SYMPTOM3", "SYMPTOM4", "SYMPTOM5"]],
+                       id_vars="VAERS_ID",
+                       value_vars=(f"SYMPTOM{i}" for i in range(1, 6))).drop("variable", axis=1)
+
+        symptoms.columns = ("VAERS_ID", "SYMPTOM")
+
+
+        # In[7]:
+
+
+        vaccination_data = vax.merge(recipients, how="inner", on="VAERS_ID")
+
+
+        # In[8]:
+
+
+        autoimmune_conditions = (
+            "Alveolar proteinosis",
+            "Ankylosing spondylitis",
+            "Anti-glomerular basement membrane disease",
+            "Antisynthetase syndrome",
+            "Autoimmune colitis",
+            "Autoimmune disorder",
+            "Autoimmune enteropathy",
+            "Autoimmune eye disorder",
+            "Autoimmune hyperlipidaemia",
+            "Autoimmune inner ear disease",
+            "Autoimmune lung disease",
+            "Autoimmune lymphoproliferative syndrome",
+            "Autoimmune myocarditis",
+            "Autoimmune nephritis",
+            "Autoimmune pericarditis",
+            "Autoimmune retinopathy",
+            "Autoimmune uveitis",
+            "Axial spondyloarthritis",
+            "Birdshot chorioretinopathy",
+            "Chronic autoimmune glomerulonephritis",
+            "Chronic gastritis",
+            "Chronic recurrent multifocal osteomyelitis",
+            "Coeliac disease",
+            "Collagen disorder",
+            "Collagen-vascular disease",
+            "Cryofibrinogenaemia",
+            "Cryoglobulinaemia",
+            "Dermatomyositis",
+            "Dressler's syndrome",
+            "Glomerulonephritis rapidly progressive",
+            "Goodpasture's syndrome",
+            "Immunoglobulin G4 related disease",
+            "IPEX syndrome",
+            "Juvenile spondyloarthritis",
+            "Keratoderma blenorrhagica",
+            "Mixed connective tissue disease",
+            "Myocarditis post infection",
+            "Ocular pemphigoid",
+            "Ocular pemphigoid",
+            "Overlap syndrome",
+            "Polychondritis",
+            "Postpericardiotomy syndrome",
+            "Pulmonary renal syndrome",
+            "Satoyoshi syndrome",
+            "Sjogren's syndrome",
+            "Sympathetic ophthalmia",
+            "Testicular autoimmunity",
+            "Undifferentiated connective tissue disease",
+            "Antiphospholipid syndrome",
+            "Autoimmune anaemia",
+            "Autoimmune aplastic anaemia",
+            "Autoimmune haemolytic anaemia",
+            "Autoimmune heparin-induced thrombocytopenia",
+            "Autoimmune neutropenia",
+            "Autoimmune pancytopenia",
+            "Cold type haemolytic anaemia",
+            "Coombs positive haemolytic anaemia",
+            "Evans syndrome",
+            "Pernicious anaemia",
+            "Warm type haemolytic anaemia",
+            "Addison's disease",
+            "Atrophic thyroiditis",
+            "Autoimmune endocrine disorder",
+            "Autoimmune hypothyroidism",
+            "Autoimmune pancreatitis",
+            "Autoimmune thyroid disorder",
+            "Autoimmune thyroiditis",
+            "Basedow's disease",
+            "Diabetic mastopathy",
+            "Endocrine ophthalmopathy",
+            "Hashimoto's encephalopathy",
+            "Hashitoxicosis",
+            "Insulin autoimmune syndrome",
+            "Ketosis-prone diabetes mellitus",
+            "Latent autoimmune diabetes in adults",
+            "Lymphocytic hypophysitis",
+            "Marine Lenhart syndrome",
+            "Polyglandular autoimmune syndrome type I",
+            "Polyglandular autoimmune syndrome type II",
+            "Polyglandular autoimmune syndrome type III",
+            "Silent thyroiditis",
+            "Type 1 diabetes mellitus",
+            "Alloimmune hepatitis",
+            "Autoimmune cholangitis",
+            "Autoimmune hepatitis",
+            "Cholangitis sclerosing",
+            "Primary biliary cholangitis",
+            "Acute cutaneous lupus erythematosus",
+            "Butterfly rash",
+            "Central nervous system lupus",
+            "Chronic cutaneous lupus erythematosus",
+            "Cutaneous lupus erythematosus",
+            "Lupoid hepatic cirrhosis",
+            "Lupus cystitis",
+            "Lupus encephalitis",
+            "Lupus endocarditis",
+            "Lupus enteritis",
+            "Lupus hepatitis",
+            "Lupus myocarditis",
+            "Lupus myositis",
+            "Lupus nephritis",
+            "Lupus pancreatitis",
+            "Lupus pleurisy",
+            "Lupus pneumonitis",
+            "Lupus vasculitis",
+            "Lupus-like syndrome",
+            "Neonatal lupus erythematosus",
+            "Neuropsychiatric lupus",
+            "Pericarditis lupus",
+            "Peritonitis lupus",
+            "Shrinking lung syndrome",
+            "SLE arthritis",
+            "Subacute cutaneous lupus erythematosus",
+            "Systemic lupus erythematosus",
+            "Systemic lupus erythematosus rash",
+            "Autoimmune myositis",
+            "Congenital myasthenic syndrome",
+            "Inclusion body myositis",
+            "Juvenile polymyositis",
+            "Morvan syndrome",
+            "Myasthenia gravis",
+            "Myasthenia gravis crisis",
+            "Myasthenia gravis neonatal",
+            "Myasthenic syndrome",
+            "Neuromyotonia",
+            "Ocular myasthenia",
+            "Polymyalgia rheumatica",
+            "Polymyositis",
+            "Acute disseminated encephalomyelitis",
+            "Acute haemorrhagic leukoencephalitis",
+            "Acute motor axonal neuropathy",
+            "Acute motor-sensory axonal neuropathy",
+            "Anti-myelin-associated glycoprotein associated polyneuropathy",
+            "Autoimmune demyelinating disease",
+            "Autoimmune encephalopathy",
+            "Autoimmune neuropathy",
+            "Axonal and demyelinating polyneuropathy",
+            "Bickerstaff's encephalitis",
+            "Chronic inflammatory demyelinating polyradiculoneuropathy",
+            "Chronic lymphocytic inflammation with pontine perivascular enhancement responsive to steroid",
+            "Concentric sclerosis",
+            "Demyelinating polyneuropathy",
+            "Encephalitis allergic",
+            "Encephalitis autoimmune",
+            "Faciobrachial dystonic seizure",
+            "Guillain-Barre syndrome",
+            "Leukoencephalomyelitis",
+            "Limbic encephalitis",
+            "Multiple sclerosis",
+            "Myelitis transverse",
+            "Neuralgic amyotrophy",
+            "Neuromyelitis optica pseudo relapse",
+            "Neuromyelitis optica spectrum disorder",
+            "Paediatric autoimmune neuropsychiatric disorders associated with streptococcal infection",
+            "POEMS syndrome",
+            "Radiologically isolated syndrome",
+            "Rasmussen encephalitis",
+            "Secondary cerebellar degeneration",
+            "Stiff leg syndrome",
+            "Stiff person syndrome",
+            "Subacute inflammatory demyelinating polyneuropathy",
+            "Susac's syndrome",
+            "Toxic oil syndrome",
+            "Autoimmune arthritis",
+            "Caplan's syndrome",
+            "Cogan's syndrome",
+            "Felty's syndrome",
+            "Juvenile idiopathic arthritis",
+            "Laryngeal rheumatoid arthritis",
+            "Palindromic rheumatism",
+            "Rheumatoid arthritis",
+            "Rheumatoid lung",
+            "Rheumatoid neutrophilic dermatosis",
+            "Rheumatoid nodule",
+            "Rheumatoid scleritis",
+            "Rheumatoid vasculitis",
+            "CREST syndrome",
+            "Digital pitting scar",
+            "Morphoea",
+            "Reynold's syndrome",
+            "Sclerodactylia",
+            "Scleroderma",
+            "Scleroderma associated digital ulcer",
+            "Scleroderma renal crisis",
+            "Scleroderma-like reaction",
+            "Systemic scleroderma",
+            "Systemic sclerosis pulmonary",
+            "Acquired epidermolysis bullosa",
+            "Alopecia areata",
+            "Autoimmune blistering disease",
+            "Autoimmune dermatitis",
+            "Benign familial pemphigus",
+            "Dermatitis herpetiformis",
+            "Eosinophilic fasciitis",
+            "Epidermolysis",
+            "Granulomatous dermatitis",
+            "Herpes gestationis",
+            "Interstitial granulomatous dermatitis",
+            "Linear IgA disease",
+            "Nephrogenic systemic fibrosis",
+            "Palisaded neutrophilic granulomatous dermatitis",
+            "Paraneoplastic dermatomyositis",
+            "Paraneoplastic pemphigus",
+            "Pemphigoid",
+            "Pemphigus",
+            "Pityriasis lichenoides et varioliformis acuta",
+            "Progressive facial hemiatrophy",
+            "Pyoderma gangrenosum",
+            "Vitiligo",
+            "Autoinflammation with infantile enterocolitis",
+            "Autoinflammatory disease",
+            "Blau syndrome",
+            "CANDLE syndrome",
+            "Chronic infantile neurological cutaneous and articular syndrome",
+            "Cryopyrin associated periodic syndrome",
+            "Deficiency of the interleukin-1 receptor antagonist",
+            "Deficiency of the interleukin-36 receptor antagonist",
+            "Familial cold autoinflammatory syndrome",
+            "Hyper IgD syndrome",
+            "Majeed's syndrome",
+            "Mevalonate kinase deficiency",
+            "Mevalonic aciduria",
+            "Muckle-Wells syndrome",
+            "PASH syndrome",
+            "PSTPIP1-associated myeloid-related proteinaemia inflammatory syndrome",
+            "Pyogenic sterile arthritis pyoderma gangrenosum and acne syndrome",
+            "Still's disease",
+            "Acquired amegakaryocytic thrombocytopenia",
+            "Acquired complement deficiency disease",
+            "Acute graft versus host disease",
+            "Acute graft versus host disease in intestine",
+            "Acute graft versus host disease in liver",
+            "Acute graft versus host disease in skin",
+            "Acute graft versus host disease oral",
+            "Amegakaryocytic thrombocytopenia",
+            "Anamnestic reaction",
+            "Aplasia pure red cell",
+            "Arthritis enteropathic",
+            "Arthritis reactive",
+            "Bacille Calmette-Guerin scar reactivation",
+            "Bronchiolitis obliterans syndrome",
+            "C1q nephropathy",
+            "C3 glomerulopathy",
+            "CEC syndrome",
+            "Central nervous system immune reconstitution inflammatory response",
+            "Chronic graft versus host disease",
+            "Chronic graft versus host disease in eye",
+            "Chronic graft versus host disease in intestine",
+            "Chronic graft versus host disease in liver",
+            "Chronic graft versus host disease in skin",
+            "Chronic graft versus host disease oral",
+            "Colitis ulcerative",
+            "Congenital thrombocytopenia",
+            "Crohn's disease",
+            "Cystitis interstitial",
+            "Cytokine release syndrome",
+            "Cytokine storm",
+            "Cytophagic histiocytic panniculitis",
+            "De novo purine synthesis inhibitors associated acute inflammatory syndrome",
+            "Decreased immune responsiveness",
+            "Encephalitis post varicella",
+            "Engraftment syndrome",
+            "Enteropathic spondylitis",
+            "Episcleritis",
+            "Erythema nodosum",
+            "Erythrodermic psoriasis",
+            "Febrile infection-related epilepsy syndrome",
+            "Fibrillary glomerulonephritis",
+            "Giant cell myocarditis",
+            "Glomerulonephritis",
+            "Graft versus host disease",
+            "Graft versus host disease in eye",
+            "Graft versus host disease in gastrointestinal tract",
+            "Graft versus host disease in liver",
+            "Graft versus host disease in lung",
+            "Graft versus host disease in skin",
+            "Guttate psoriasis",
+            "Haemophagocytic lymphohistiocytosis",
+            "Heparin-induced thrombocytopenia",
+            "Hypergammaglobulinaemia",
+            "Hypocomplementaemia",
+            "Idiopathic interstitial pneumonia",
+            "Idiopathic pulmonary fibrosis",
+            "IgA nephropathy",
+            "IgM nephropathy",
+            "Immune reconstitution inflammatory syndrome",
+            "Immune reconstitution inflammatory syndrome associated Kaposi's sarcoma",
+            "Immune reconstitution inflammatory syndrome associated tuberculosis",
+            "Immune recovery uveitis",
+            "Immune system disorder",
+            "Immune thrombocytopenia",
+            "Immune-mediated adverse reaction",
+            "Immune-mediated arthritis",
+            "Immune-mediated cholangitis",
+            "Immune-mediated cholestasis",
+            "Immune-mediated cytopenia",
+            "Immune-mediated dermatitis",
+            "Immune-mediated encephalitis",
+            "Immune-mediated encephalopathy",
+            "Immune-mediated endocrinopathy",
+            "Immune-mediated enterocolitis",
+            "Immune-mediated gastritis",
+            "Immune-mediated hepatic disorder",
+            "Immune-mediated hepatitis",
+            "Immune-mediated hyperthyroidism",
+            "Immune-mediated hypothyroidism",
+            "Immune-mediated myocarditis",
+            "Immune-mediated myositis",
+            "Immune-mediated nephritis",
+            "Immune-mediated neuropathy",
+            "Immune-mediated pancreatitis",
+            "Immune-mediated pneumonitis",
+            "Immune-mediated renal disorder",
+            "Immune-mediated thyroiditis",
+            "Immune-mediated uveitis",
+            "Immunisation reaction",
+            "Infection masked",
+            "Infection susceptibility increased",
+            "Interstitial lung disease",
+            "Iritis",
+            "Jarisch-Herxheimer reaction",
+            "Juvenile psoriatic arthritis",
+            "Kaposi sarcoma inflammatory cytokine syndrome",
+            "Keratic precipitates",
+            "Lewis-Sumner syndrome",
+            "Mast cell activation syndrome",
+            "Mastocytic enterocolitis",
+            "Mazzotti reaction",
+            "Membranous-like glomerulopathy with masked IgG-kappa deposits",
+            "Metastatic cutaneous Crohn's disease",
+            "Multifocal motor neuropathy",
+            "Multiple chemical sensitivity",
+            "Multisystem inflammatory syndrome in children",
+            "Myofascitis",
+            "Nail psoriasis",
+            "Neonatal alloimmune thrombocytopenia",
+            "Neonatal Crohn's disease",
+            "Neuronophagia",
+            "Neutrophil extracellular trap formation",
+            "Noninfectious myelitis",
+            "Obliterative bronchiolitis",
+            "Optic neuritis",
+            "Optic perineuritis",
+            "Palmoplantar pustulosis",
+            "Paradoxical psoriasis",
+            "Paraneoplastic retinopathy",
+            "Pathergy reaction",
+            "Pleuroparenchymal fibroelastosis",
+            "Polyneuropathy in malignant disease",
+            "Postcolectomy panenteritis",
+            "Pre-engraftment immune reaction",
+            "Proctitis ulcerative",
+            "Pseudomononucleosis",
+            "Psoriasis",
+            "Psoriatic arthropathy",
+            "Pulmonary sensitisation",
+            "Pustular psoriasis",
+            "Pustulotic arthro-osteitis",
+            "Pyostomatitis vegetans",
+            "Reactive angioendotheliomatosis",
+            "Reactive capillary endothelial proliferation",
+            "Rebound psoriasis",
+            "Retroperitoneal fibrosis",
+            "Rheumatic brain disease",
+            "Rheumatic disorder",
+            "Rheumatic fever",
+            "Sacroiliitis",
+            "SAPHO syndrome",
+            "Scleritis",
+            "Sensitisation",
+            "Sepsis syndrome",
+            "Spontaneous heparin-induced thrombocytopenia syndrome",
+            "Subacute sclerosing panencephalitis",
+            "Systemic immune activation",
+            "Systemic mastocytosis",
+            "Tachyphylaxis",
+            "Thymus disorder",
+            "Thymus enlargement",
+            "Transfusion associated graft versus host disease",
+            "Transfusion microchimerism",
+            "Tubulointerstitial nephritis and uveitis syndrome",
+            "Ulcerative keratitis",
+            "Uveitis",
+            "Vogt-Koyanagi-Harada disease",
+            "Acute haemorrhagic oedema of infancy",
+            "Administration site vasculitis",
+            "Angiopathic neuropathy",
+            "Anti-neutrophil cytoplasmic antibody positive vasculitis",
+            "Application site vasculitis",
+            "Behcet's syndrome",
+            "Catheter site vasculitis",
+            "Central nervous system vasculitis",
+            "Cutaneous vasculitis",
+            "Diffuse vasculitis",
+            "Eosinophilic granulomatosis with polyangiitis",
+            "Giant cell arteritis",
+            "Granulomatosis with polyangiitis",
+            "Haemorrhagic vasculitis",
+            "Henoch-Schonlein purpura",
+            "Henoch-Schonlein purpura nephritis",
+            "Hypersensitivity vasculitis",
+            "Infected vasculitis",
+            "Infusion site vasculitis",
+            "Injection site vasculitis",
+            "Kawasaki's disease",
+            "MAGIC syndrome",
+            "Medical device site vasculitis",
+            "Microscopic polyangiitis",
+            "Nodular vasculitis",
+            "Ocular vasculitis",
+            "Palpable purpura",
+            "Polyarteritis nodosa",
+            "Pseudovasculitis",
+            "Pulmonary vasculitis",
+            "Renal vasculitis",
+            "Retinal vasculitis",
+            "Segmented hyalinising vasculitis",
+            "Stoma site vasculitis",
+            "Takayasu's arteritis",
+            "Thromboangiitis obliterans",
+            "Vaccination site vasculitis",
+            "Vasculitic rash",
+            "Vasculitic ulcer",
+            "Vasculitis",
+            "Vasculitis gastrointestinal",
+            "Vasculitis necrotising"
+        )
+
+
+        # In[9]:
+
+
+        p_normals = r".*negative$|.*\snormal$|.*(scopy|graphy|gram|metry|opsy)$|.*(count|percentage|level|test|assay|culture|X-ray|imaging|gradient|band(s)?|index|surface area|gas|scale|antibod(y|ies)|urine absent|Carotid pulse|partial pressure|time|P(C)?O2)$|Oxygen saturation$|End-tidal.*"
+        p_tests = r".*(ase|ose|ine|enzyme|in|ine|ines|ium|ol|ole|ate|lytes|ogen|gases|oids|ide|one|an|copper|iron)$|.*(level therapeutic)$|.*(globulin)\s.{1,2}$|Barium (swallow|enema)"
+        p_procedures = r".*(plasty|insertion|tomy|ery|puncture|therapy|treatment|tripsy|operation|repair|procedure|bypass|insertion|removal|graft|closure|implant|lavage|support|transplant|match|bridement|application|ablation)$|Incisional drainage$|.* stimulation$|Immunisation$"
+        p_normal_procedures = r"(Biopsy|pH|.* examination|X-ray|.* pulse|Blood|Electro(.*)gram|.* test(s)?|Echo(.*)gram|.*(scopy)|Cardiac (imaging|monitoring|ventriculogram)|Chromosomal|Carbohydrate antigen|Cell marker|.* examination|Computerised tomogram|Culture|.* evoked potential(s)?|Cytology|Doppler)(?!.*(abnormal|increased|decreased|depression|elevation|present|absent))"
+        p_managements = r"(Catheter|Device\).*|.* care$|.* user$|Cardiac pacemaker .*"
+        p_other_irrelevants = r"Blood group.*|Blood don(or|ation)$|Drug (abuse(r)?|dependence|screen).*|Elderly|Non-tobacco user|No adverse event"
+        p_covid_related = r".*COVID-19(prophylaxis|immunisation|screening)|Asymptomatic COVID-19"
+
+        p = re.compile("|".join([p_normals, p_tests, p_procedures, p_normal_procedures, p_other_irrelevants, p_covid_related]))
+
+
+        # In[10]:
+
+
+        symptoms = symptoms[symptoms.SYMPTOM.str.match(p) == False]
+
+
+        # In[11]:
+
+
+        symptoms["IS_AUTOIMMUNE"] = symptoms.SYMPTOM.isin(autoimmune_conditions)
+
+
+        # In[12]:
+
+
+        instances = vax.merge(symptoms[["VAERS_ID", "IS_AUTOIMMUNE"]].groupby("VAERS_ID").agg({"IS_AUTOIMMUNE": np.max}), how="inner", left_on="VAERS_ID", right_index=True).merge(recipients, how="inner").groupby("VAERS_ID").first()
+
+        # In[13]:
+
+
+        maj_min_value=pd.crosstab(instances.IS_COVID_VACCINE, instances.IS_AUTOIMMUNE)
+        st.title(maj_min_value)
+        st.write(maj_min_value)
+
+
+        # In[14]:
+
+
+        cases = instances[instances.IS_AUTOIMMUNE == True]
+        controls = instances[instances.IS_AUTOIMMUNE == False]
+
+        cases["VAERS_ID"] = cases.index
+        controls["VAERS_ID"] = controls.index
+
+        # In[15]:
+
+        m = Matcher(cases, controls, yvar="IS_AUTOIMMUNE", exclude=["VAERS_ID"])
+
+        # In[ ]:
+
+
 
 
 

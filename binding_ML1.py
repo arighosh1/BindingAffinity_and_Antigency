@@ -459,7 +459,7 @@ elif value == 1:
     protein = st.text_input("Enter Protein Sequence ")
     # calculate averaged Hopp score
     if len(protein) > 0:
-        pep_length=st.slider("Window Size : ",3,7,9,3)
+        pep_length=st.slider("Window Size : ",7,9,7)
         alpha=st.slider("Alpha value : ",0.1,1,0.1)
         result = calc_hopp(protein, pep_length,alpha)
 

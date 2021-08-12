@@ -12,7 +12,7 @@ from Bio.SeqUtils.ProtParam import ProteinAnalysis
 from PIL import Image
 from quantiprot.metrics.aaindex import get_aa2charge, get_aa2hydropathy
 from PIL import Image
-img = Image.open('icon.jpeg')
+img = Image.open('icon1.jpg')
 st.set_page_config(page_title='RATIONAL VACCINE DESIGN FOR VIRUS USING MACHINE LEARNING APPROACHES', page_icon=img,layout='wide', initial_sidebar_state='auto')
 # import os
 # #
@@ -47,7 +47,7 @@ st.markdown(
     ''',
     unsafe_allow_html=True
 )
-st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon.jpeg?raw=true")
+st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon1.jpg?raw=true")
 value=st.sidebar.slider("Slide to 0 for Binding Affinity And 1 for Antigenicity and 2 for covid Immune",0,2,0)
 if value == 0:
     # !/usr/bin/env python

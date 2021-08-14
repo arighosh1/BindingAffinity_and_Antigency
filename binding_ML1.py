@@ -460,7 +460,8 @@ elif value == 1:
     # calculate averaged Hopp score
     if len(protein) > 0:
         pep_length=st.slider("Window Size : ",7,9,7)
-        alpha=st.slider("Alpha value : ",0,1,0)
+        alpha=st.slider("Alpha value after floating point : ",0,10,0)
+        alpha/=10
         result = calc_hopp(protein, pep_length,alpha)
 
         # print averaged Hopp score result, from lowest to highest
@@ -517,7 +518,8 @@ elif value == 1:
         # plt.xlabel("Amino Acid Position")
         # plt.ylabel("Hydrophilicity Score")
         plt.savefig("234", dpi=100)
-
+        st.write("Window Size = ",pep_length)
+        st.write("Alpha Value = ",alpha)
         st.image("234.png")
         # ## Validating against Expasy Result
 

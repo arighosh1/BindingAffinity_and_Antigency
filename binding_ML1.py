@@ -460,7 +460,7 @@ elif value == 1:
     # calculate averaged Hopp score
     if len(protein) > 0:
         pep_length=st.slider("Window Size : ",7,9,7)
-        alpha=st.slider("Alpha value after floating point : ",0,10,0)
+        alpha=st.slider("Alpha value : ",1,5,1)
         alpha/=10
         result = calc_hopp(protein, pep_length,alpha)
 

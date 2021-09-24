@@ -286,7 +286,7 @@ if value == 0:
             plt.savefig('foo.png')
             from PIL import Image
 
-            image = Image.open('https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/foo.png?raw=true')
+            img = Image.open('https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/foo.png')
             st.image(image)
 
             st.image(img)

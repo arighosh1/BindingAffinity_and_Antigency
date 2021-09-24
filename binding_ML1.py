@@ -92,10 +92,10 @@ if value == 0:
 
     # In[3]:
 
-     file1 = st.file_uploader("Upload File Containing PDB_ID(Training Set) : ", accept_multiple_files=False)
-     file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
+    file1 = st.file_uploader("Upload File Containing PDB_ID(Training Set) : ", accept_multiple_files=False)
+    file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
 
-     if file1 != None and file2!=None :
+    if file1 != None and file2!=None :
         # Read the data
         df_TR = pd.read_csv(file1)
         df_TS = pd.read_csv(file2)

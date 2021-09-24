@@ -232,6 +232,69 @@ if value == 0:
         # In[ ]:
 
         # In[ ]:
+        file_1 = st.file_uploader('protein-ligand.csv', accept_multiple_files=False)
+        file_2 = st.file_uploader('protein-ligand-test.csv', accept_multiple_files=False)
+
+        if file_1 != None and file_2!=None :
+            # Read the data
+
+            df = pd.read_csv(file_1)
+            df2 = pd.read_csv(file_2)
+
+            # !/usr/bin/env python
+            # coding: utf-8
+
+            # In[6]:
+
+            import streamlit as st
+            import numpy as np
+            import matplotlib.pyplot as plt
+            import pandas as pd
+            import numpy as np
+
+            print(df.head())
+            X = df.iloc[:, [1, 2]]
+            Y = df2.iloc[:, 1]
+            print(X, Y)
+            from sklearn.model_selection import train_test_split
+
+            x_train, x_test, y_train, y_test = train_test_split(X, Y)
+
+            print("Training data :", x_train.shape)
+            print("Test data :", x_test.shape)
+
+            from sklearn.preprocessing import StandardScaler
+
+            sc_x = StandardScaler()
+            x_train = sc_x.fit_transform(x_train)
+            x_test = sc_x.fit_transform(x_test)
+            from sklearn.svm import SVC
+            from sklearn import preprocessing
+
+            lab_enc = preprocessing.LabelEncoder()
+            train_y = lab_enc.fit_transform(y_train)
+            classifier = SVC(kernel='linear')
+            classifier.fit(x_train, train_y)
+            y_pred = classifier.predict(x_test)
+            st.write(y_pred)
+            from sklearn import metrics
+
+            test_y = lab_enc.fit_transform(y_test)
+            print(metrics.accuracy_score(test_y, y_pred))
+            plt.scatter(x_test[:, 0], x_test[:, 1], c=test_y)
+            plt.savefig('foo.png')
+            from PIL import Image
+
+            image = Image.open('foo.png')
+            st.image(image)
+
+            # In[ ]:
+
+            # In[ ]:
+
+            # In[ ]:
+
+
 
 
 

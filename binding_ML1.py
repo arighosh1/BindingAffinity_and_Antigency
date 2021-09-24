@@ -92,11 +92,10 @@ if value == 0:
 
     # In[3]:
 
-#     file1 = st.file_uploader("Upload File Containing PDB_ID(Training Set) : ", accept_multiple_files=False)
-#     file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
-     x=1
-     if x==1 :
-#     if file1 != None and file2!=None :
+#     file_1 = st.file_uploader("Upload File Containing PDB_ID(Training Set) : ", accept_multiple_files=False)
+#     file_2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
+
+     if file_1 != None and file_2!=None :
 #         # Read the data
 #         df_TR = pd.read_csv(file1)
 #         df_TS = pd.read_csv(file2)
@@ -234,8 +233,8 @@ if value == 0:
 
 #         # In[ ]:
 #         st.title("\nSVM\n")
-        file_1 = st.file_uploader('protein-ligand.csv', accept_multiple_files=False)
-        file_2 = st.file_uploader('protein-ligand-test.csv', accept_multiple_files=False)
+#         file_1 = st.file_uploader('protein-ligand.csv', accept_multiple_files=False)
+#         file_2 = st.file_uploader('protein-ligand-test.csv', accept_multiple_files=False)
 
         if file_1 != None and file_2!=None :
             # Read the data

@@ -92,8 +92,8 @@ if value == 0:
 
     # In[3]:
 
-#     file_1 = st.file_uploader("Upload File Containing PDB_ID(Training Set) : ", accept_multiple_files=False)
-#     file_2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
+     file_1 = st.file_uploader("Upload File Containing PDB_ID(Training Set) : ", accept_multiple_files=False)
+     file_2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
 
      if file_1 != None and file_2!=None :
 #         # Read the data

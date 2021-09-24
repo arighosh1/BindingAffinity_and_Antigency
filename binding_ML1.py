@@ -232,6 +232,7 @@ if value == 0:
         # In[ ]:
 
         # In[ ]:
+        st.title("\nSVM\n")
         file_1 = st.file_uploader('protein-ligand.csv', accept_multiple_files=False)
         file_2 = st.file_uploader('protein-ligand-test.csv', accept_multiple_files=False)
 

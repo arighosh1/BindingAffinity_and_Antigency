@@ -283,11 +283,10 @@ if value == 0:
             test_y = lab_enc.fit_transform(y_test)
             print(metrics.accuracy_score(test_y, y_pred))
             plt.scatter(x_test[:, 0], x_test[:, 1], c=test_y)
-            plt.savefig('foo.png')
+            img=plt.savefig('foo.png')
             from PIL import Image
 
-            image = Image.open('foo.png')
-            st.image(image)
+            st.image(img)
 
             # In[ ]:
 

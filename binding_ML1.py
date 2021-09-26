@@ -105,7 +105,7 @@ if value == 0:
     file1 = st.file_uploader("", accept_multiple_files=False)
     my_1=color_and_font("Upload File Containing PDB_ID(Testing Set) : ","blue")
     st.markdown(my_1, unsafe_allow_html=True)
-    file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
+    file2 = st.file_uploader("", accept_multiple_files=False)
 
     if file1 != None and file2!=None :
         # Read the data

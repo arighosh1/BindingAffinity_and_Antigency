@@ -100,12 +100,11 @@ if value == 0:
     import requests
 
     # In[3]:
-    my_font = color_and_font("Upload File Containing PDB_ID(Training Set) : ","blue")
-    st.markdown(my_font, unsafe_allow_html=True)
+    my_1 = color_and_font("Upload File Containing PDB_ID(Training Set) : ","blue")
+    st.markdown(my_1, unsafe_allow_html=True)
     file1 = st.file_uploader("", accept_multiple_files=False)
-    my_font = color_and_font("Upload File Containing PDB_ID(Testing Set) : ","blue")
-    st.markdown(my_font, unsafe_allow_html=True)
-    
+    my_2 = color_and_font("Upload File Containing PDB_ID(Testing Set) : ","blue")
+    st.markdown(my_2, unsafe_allow_html=True)
     file2 = st.file_uploader("", accept_multiple_files=False)
 
     if file1 != None and file2!=None :

@@ -104,7 +104,7 @@ if value == 0:
     st.markdown(my_1, unsafe_allow_html=True)
     file1 = st.file_uploader("", accept_multiple_files=False)
     
-    
+    st.markdown(my_1, unsafe_allow_html=True)
     file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
 
     if file1 != None and file2!=None :

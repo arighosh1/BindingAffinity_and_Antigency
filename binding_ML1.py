@@ -103,7 +103,7 @@ if value == 0:
     my_1 = color_and_font("Upload File Containing PDB_ID(Training Set) : ","blue")
     st.markdown(my_1, unsafe_allow_html=True)
     file1 = st.file_uploader("", accept_multiple_files=False)
-    
+    my_1=color_and_font("Upload File Containing PDB_ID(Testing Set) : ","blue")
     st.markdown(my_1, unsafe_allow_html=True)
     file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
 

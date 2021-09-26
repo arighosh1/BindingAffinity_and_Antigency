@@ -47,6 +47,18 @@ st.markdown(
     ''',
     unsafe_allow_html=True
 )
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown('<style>{}</style>'.format(f.read()), unsafe_allow_html=True)
+
+local_css("style.css")
+def color_and_font(str,color):
+    return "<div> <span class='highlight "+color+"'><span class='bold'>"+str+"</span></span></div>"
+
+my_font = color_and_font("protein-ligand.cs","blue")
+
+st.markdown(my_font, unsafe_allow_html=True)
+
 st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon1.jpg?raw=true")
 value=st.sidebar.slider("Slide to 0 for Binding Affinity And 1 for Antigenicity and 2 for Covid_Autoimmune",0,2,0)
 if value == 0:

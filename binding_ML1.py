@@ -55,9 +55,6 @@ local_css("style.css")
 def color_and_font(str,color):
     return "<div> <span class='highlight "+color+"'><span class='bold'>"+str+"</span></span></div>"
 
-my_font = color_and_font("protein-ligand.cs","blue")
-
-st.markdown(my_font, unsafe_allow_html=True)
 
 st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon1.jpg?raw=true")
 value=st.sidebar.slider("Slide to 0 for Binding Affinity And 1 for Antigenicity and 2 for Covid_Autoimmune",0,2,0)
@@ -103,9 +100,13 @@ if value == 0:
     import requests
 
     # In[3]:
-
-    file1 = st.file_uploader("Upload File Containing PDB_ID(Training Set) : ", accept_multiple_files=False)
-    file2 = st.file_uploader("Upload File Containing PDB_ID(Testing Set) : ", accept_multiple_files=False)
+    my_font = color_and_font("Upload File Containing PDB_ID(Training Set) : ","blue")
+    st.markdown(my_font, unsafe_allow_html=True)
+    file1 = st.file_uploader("", accept_multiple_files=False)
+    my_font = color_and_font("Upload File Containing PDB_ID(Testing Set) : ","blue")
+    st.markdown(my_font, unsafe_allow_html=True)
+    
+    file2 = st.file_uploader("", accept_multiple_files=False)
 
     if file1 != None and file2!=None :
         # Read the data

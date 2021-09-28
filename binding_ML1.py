@@ -425,7 +425,7 @@ elif value == 1:
 
 
     # Amino Acid Scale Defined by Hopp-Woods's original paper
-    parker_hydrophilic = {
+    hopp_scores = {
         "R": 3,
         "D": 3,
         "E": 3,

@@ -552,6 +552,7 @@ elif value == 1:
     st.write("1.	Enter a protein sequence in plain format")
     st.write("2.	Select a prediction method")
     st.write("3.	Press Enter")
+    st.write("4.	Manipulate the window size and alpha value to observe the results")
 
     protein = st.text_input("Enter Protein Sequence ")
     # calculate averaged Hopp score

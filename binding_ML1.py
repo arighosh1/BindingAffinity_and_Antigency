@@ -425,7 +425,7 @@ elif value == 1:
 
 
     # Amino Acid Scale Defined by Hopp-Woods's original paper
-    hopp_scores = {
+    parker_hydrophilic = {
         "R": 3,
         "D": 3,
         "E": 3,
@@ -500,7 +500,7 @@ elif value == 1:
 
         # Caculate un-corrected score
         aa_lst = list(seq)
-        resi_hopp_lst = [hopp_scores[x] for x in aa_lst]
+        resi_hopp_lst = [parker_hydrophilic[x] for x in aa_lst]
 
         # Caculate weights
         weight_lst = lm(pep_length, alpha)

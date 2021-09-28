@@ -56,7 +56,7 @@ def color_and_font(str,color):
     return "<div> <span class='highlight "+color+"'><span class='bold'>"+str+"</span></span></div>"
 
 
-st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon1.jpg?raw=true")
+# st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon1.jpg?raw=true")
 value=st.sidebar.slider("Slide to 0 for Binding Affinity And 1 for Antigenicity and 2 for Covid_Autoimmune",0,2,0)
 if value == 0:
     # !/usr/bin/env python
@@ -98,6 +98,20 @@ if value == 0:
     import pandas as pd
     import numpy as np
     import requests
+
+    st.title("Binding Affinity.")
+    st.write("The strength of the binding interaction between a single biomolecule (e.g., protein or DNA) and its ligand/binding partner is referred to as binding affinity (e.g., drug or inhibitor). The equilibrium dissociation constant (KD), which is used to evaluate, and rank order the strengths of bimolecular interactions, is commonly used to measure and report binding affinity. The lower the KD value, the greater the ligand's affinity for its target. The higher the KD value, the weaker the attraction and binding of the target molecule and ligand.")
+    st.write("Non-covalent intermolecular interactions such as hydrogen bonding, electrostatic interactions, hydrophobic and Van der Waals forces between the two molecules all influence binding affinity. Furthermore, the presence of other molecules may affect the binding affinity of a ligand to its target molecule.")
+    st.image("before_method.jpg")
+    st.write("Method: ")
+    st.image("after_method.jpg")
+    st.write("Algorithms:")
+    st.write("1.	KNN (K — Nearest Neighbors) is one of many (supervised learning) algorithms used in data mining and machine learning; it is a classifier algorithm in which the learning is based on 'how similar' one data (a vector) is to another.")
+    st.write("2.	The random forest, as the name implies, is made up of many individual decision trees that work together as an ensemble. Each individual tree in the random forest produces a class prediction, and the class with the most votes become the prediction of our model.")
+    st.write("3.	The support vector machine algorithm's goal is to find a hyperplane in an N-dimensional space (N — the number of features) that clearly classifies the data points. There are numerous hyperplanes that could be used to separate the two classes of data points. Our goal is to find a plane with the greatest margin, i.e., the greatest distance between data points from both classes. Maximizing the margin distance provides some reinforcement, allowing future data points to be classified with greater certainty.")
+    st.write("")
+
+
 
     # In[3]:
     my_1 = color_and_font("Upload File Containing PDB_ID(Training Set) : ","blue")
@@ -530,6 +544,22 @@ elif value == 1:
     # ### Example 1: Compute Hopp-Woods Scores Without Weights (window=7, $\alpha=1$)
 
     # In[2]:
+    st.title("Antigenicity.")
+    st.write("Antigenicity Prediction")
+    st.write(
+        "The location of continuous epitopes has been linked to properties of polypeptide chains such as hydrophilicity, flexibility, accessibility, turns, exposed surface, polarity, and antigenic propensity. This has resulted in a search for empirical rules that would allow the position of continuous epitopes to be predicted based on specific features of the protein sequence. The propensity scales for each of the 20 amino acids are used in all prediction calculations. Each scale is made up of 20 values that are assigned to each amino acid residue based on their relative proclivity to possess the property described by the scale.")
+    st.write("Method:")
+    st.write(
+        "The amino acids in an interval of the chosen length, centered around residue I are considered when computing the score for a given residue i. In other words, for a window size n, the score for residue I was computed by subtracting the I - (n-1)/2 neighboring residues on each side of the residue. The score for residue I is the average of the scale values for these amino acids, unless otherwise specified (see table 1 for specific method implementation details). In general, a window size of 5 to 7 is appropriate for detecting potentially antigenic regions.")
+    st.write("Hopp-Woods scale:")
+    st.write(
+        "Hopp-Woods scale: Hopp and Woods created their hydrophobicity scale to help them identify potentially antigenic sites in proteins. This scale is essentially a hydrophilic index with negative values assigned to apolar residues. When a window size of 7 is used, antigenic sites are more likely to be predicted.")
+    st.write("Parker scale:")
+    st.write(
+        "In this method, a hydrophilic scale based on peptide retention times was constructed using high-performance liquid chromatography (HPLC) on a reversed-phase column. The epitope region was examined using a seven-residue window. The corresponding scale value was introduced for each of the seven residues, and the arithmetic mean of the seven residue values was assigned to the segment's fourth, (i+3), residue.")
+    st.write("1.	Enter a protein sequence in plain format")
+    st.write("2.	Select a prediction method")
+    st.write("3.	Press Enter")
 
     protein = st.text_input("Enter Protein Sequence ")
     # calculate averaged Hopp score

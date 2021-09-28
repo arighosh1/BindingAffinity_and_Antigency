@@ -190,7 +190,7 @@ if value == 0:
             scores[m + "_rmse_valid"] = sqrt(mean_squared_error(Y_valid, Y_pred_valid_rf))
             scores[m + "_mae_valid"] = mean_absolute_error(Y_valid, Y_pred_valid_rf)
             scores[m + "_pcc_valid"] = pearsonr(Y_valid, Y_pred_valid_rf)
-
+        st.title("RandomForest Values")
         scores_RF_train = pd.Series(scores).T
         scores_RF_train
 

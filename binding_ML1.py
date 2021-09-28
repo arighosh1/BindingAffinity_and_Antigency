@@ -1253,7 +1253,7 @@ elif value == 2:
         controls["VAERS_ID"] = controls.index
 
         # In[15]:
-
+        #
         m = Matcher(cases, controls, yvar="IS_AUTOIMMUNE", exclude=["VAERS_ID"])
 
         # In[ ]:

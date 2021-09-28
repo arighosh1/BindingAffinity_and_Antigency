@@ -99,7 +99,7 @@ if value == 0:
     import numpy as np
     import requests
 
-    st.title("Binding Affinity")
+    st.title("Binding Affinity.")
     st.write("The strength of the binding interaction between a single biomolecule (e.g., protein or DNA) and its ligand/binding partner is referred to as binding affinity (e.g., drug or inhibitor). The equilibrium dissociation constant (KD), which is used to evaluate, and rank order the strengths of bimolecular interactions, is commonly used to measure and report binding affinity. The lower the KD value, the greater the ligand's affinity for its target. The higher the KD value, the weaker the attraction and binding of the target molecule and ligand.")
     st.write("Non-covalent intermolecular interactions such as hydrogen bonding, electrostatic interactions, hydrophobic and Van der Waals forces between the two molecules all influence binding affinity. Furthermore, the presence of other molecules may affect the binding affinity of a ligand to its target molecule.")
     st.image("before_method.jpg")
@@ -120,13 +120,21 @@ if value == 0:
     my_1=color_and_font("Upload File Containing PDB_ID(Testing Set) : ","blue")
     st.markdown(my_1, unsafe_allow_html=True)
     file2 = st.file_uploader(" ", accept_multiple_files=False)
-
     if file1 != None and file2!=None :
-        # Read the data
+
+
+
+        # !/usr/bin/env python
+        # coding: utf-8
         df = pd.read_csv(file1)
         df2 = pd.read_csv(file2)
+
+
+        # Read the data
+
+
         # print(df.head())
-        # st.write(df.head())
+        # st.write("Data Head",df.head())
 
         # In[ ]:
 
@@ -137,7 +145,6 @@ if value == 0:
         # In[ ]:
 
         # In[3]:
-
         # Traning Sets
         X = df.iloc[:, [1, 2]]
         Y = df2.iloc[:, 1]
@@ -235,39 +242,36 @@ if value == 0:
         # In[18]:
 
         # print("KNN predicted Vlue:", train_preds)
-        st.write("KNN predicted Vlue:", train_preds)
+        st.title("KNN predicted Value:")
+        st.write( train_preds)
 
         # In[19]:
 
         mse = mean_squared_error(YT_array, train_preds)
         rmse = sqrt(mse)
         # print("RMSE_train KNN:", rmse)
-        st.write("RMSE_train KNN:", rmse)
+        st.title("RMSE_train KNN:",rmse)
 
         # In[33]:
 
-        import matplotlib.pyplot as plt
         from matplotlib.colors import ListedColormap
         import seaborn as sns
 
         # In[70]:
 
-        plt.plot(train_preds)
-        plt.savefig("Antigenic_Value")
-        st.image("Antigenic_Value.png")
-
-        # In[ ]:
+        #plt.plot(train_preds)
+        st.line_chart(train_preds)
+        # plt.savefig("Antigenic_Value")
+        # st.image("Antigenic_Value.png")
 
         st.title("\nSVM\n")
-
-        # !/usr/bin/env python
-        # coding: utf-8
-
-            # In[6]:
-
+        # if(df==new_df):
+        #     st.write("Same")
+        # else:
+        #     st.write("not same")
+        # In[6]:
         import streamlit as st
         import numpy as np
-        import matplotlib.pyplot as plt
         import pandas as pd
         import numpy as np
 
@@ -301,17 +305,11 @@ if value == 0:
 
         test_y = lab_enc.fit_transform(y_test)
         # print(metrics.accuracy_score(test_y, y_pred))
-        plt.scatter(x_test[:, 0], x_test[:, 1], c=test_y)
-        plt.savefig("foo", dpi=100)
-        from PIL import Image
+        import matplotlib.pyplot as myplt
+        myplt.scatter(x_test[:, 0], x_test[:, 1], c=test_y)
+        myplt.savefig("foo", dpi=100)
 
         st.image("foo.png")
-
-        # In[ ]:
-
-        # In[ ]:
-
-        # In[ ]:
 
 
 
@@ -394,7 +392,6 @@ elif value == 1:
 
     # In[9]:
 
-    import matplotlib.pyplot as plt
 
     #
     #
@@ -426,7 +423,6 @@ elif value == 1:
     # # In[1]:
     #
 
-    import matplotlib.pyplot as plt
 
     # Amino Acid Scale Defined by Hopp-Woods's original paper
     hopp_scores = {
@@ -537,7 +533,8 @@ elif value == 1:
     # ### Example 1: Compute Hopp-Woods Scores Without Weights (window=7, $\alpha=1$)
 
     # In[2]:
-    st.title("Antigenicity")
+    st.title("Antigenicity.")
+    st.write("Antigenicity Prediction")
     st.write(
         "The location of continuous epitopes has been linked to properties of polypeptide chains such as hydrophilicity, flexibility, accessibility, turns, exposed surface, polarity, and antigenic propensity. This has resulted in a search for empirical rules that would allow the position of continuous epitopes to be predicted based on specific features of the protein sequence. The propensity scales for each of the 20 amino acids are used in all prediction calculations. Each scale is made up of 20 values that are assigned to each amino acid residue based on their relative proclivity to possess the property described by the scale.")
     st.write("Method:")
@@ -552,7 +549,6 @@ elif value == 1:
     st.write("1.	Enter a protein sequence in plain format")
     st.write("2.	Select a prediction method")
     st.write("3.	Press Enter")
-    st.write("4.	Manipulate the window size and alpha value to observe the results")
 
     protein = st.text_input("Enter Protein Sequence ")
     # calculate averaged Hopp score
@@ -696,11 +692,9 @@ elif value == 2:
     # print(f"scipy version: {scipy.__version__}")
     # print(f"statsmodels version: {statsmodels.__version__}")
 
-    st.title("Autoimmune Adverse Event following Immunization (AEFI) prediction after COVID-19 vaccination reported to Vaccine Adverse Event Reporting System (VAERS)")
-    st.write(
-        "This study, on the other hand, looks at the long-term consequences of immunization. It investigates a group of unfavorable occurrences known as 'autoimmune diseases,' which involve the immune system attacking its own cells and include LLD, rheumatoid arthritis, and Crohn's disease. The following types of adverse occurrences are considered. Autoimmunity is a serious issue for COVID-19 vaccination recipients. Autoimmune illnesses are unpleasant, long-lasting, and can reduce a person's earning potential. Certain autoimmune diseases can be deadly or severe in rare circumstances. We used the Vaccine Adversity Reporting System (VAERS) input data set (1990-2021). It's a countrywide early warning system for possible security concerns with American vaccinations. The results demonstrate that the COVID-19 vaccination is safe for those with autoimmune diseases. When a person reports a safety signal, the risk of receiving a COVID-19 vaccination is only twice as high as when a person receives a non-COVID-19 vaccine. It's important to note that the link isn't causative. These investigations do not establish a cause; rather, they aid in the identification of possible issues that may be investigated further using other approaches.")
 
     # In[4]:
+
     vac = st.file_uploader("Enter your (VAX FILE) : ")
     rec = st.file_uploader("Enter your (DATA FILE) : ")
     sym = st.file_uploader("Enter your (SYMPTOMS FILE) : ")

@@ -695,11 +695,11 @@ elif value == 2:
     # print(f"scipy version: {scipy.__version__}")
     # print(f"statsmodels version: {statsmodels.__version__}")
 
-
-    # In[4]:
     st.title("Autoimmune Adverse Event following Immunization (AEFI) prediction after COVID-19 vaccination reported to Vaccine Adverse Event Reporting System (VAERS)")
     st.write(
         "This study, on the other hand, looks at the long-term consequences of immunization ("side effects"). It investigates a group of unfavorable occurrences known as 'autoimmune diseases,' which involve the immune system attacking its own cells and include LLD, rheumatoid arthritis, and Crohn's disease. The following types of adverse occurrences are considered. Autoimmunity is a serious issue for COVID-19 vaccination recipients. Autoimmune illnesses are unpleasant, long-lasting, and can reduce a person's earning potential. Certain autoimmune diseases can be deadly or severe in rare circumstances. We used the Vaccine Adversity Reporting System (VAERS) input data set (1990-2021). It's a countrywide early warning system for possible security concerns with American vaccinations. The results demonstrate that the COVID-19 vaccination is safe for those with autoimmune diseases. When a person reports a safety signal, the risk of receiving a COVID-19 vaccination is only twice as high as when a person receives a non-COVID-19 vaccine. It's important to note that the link isn't causative. These investigations do not establish a cause; rather, they aid in the identification of possible issues that may be investigated further using other approaches.")
+
+    # In[4]:
     vac = st.file_uploader("Enter your (VAX FILE) : ")
     rec = st.file_uploader("Enter your (DATA FILE) : ")
     sym = st.file_uploader("Enter your (SYMPTOMS FILE) : ")

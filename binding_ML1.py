@@ -123,45 +123,41 @@ if value == 0:
 
     if file1 != None and file2!=None :
         # Read the data
-        df_TR = pd.read_csv(file1)
-        df_TS = pd.read_csv(file2)
+        df = pd.read_csv(file1)
+        df2 = pd.read_csv(file2)
+        # print(df.head())
+        # st.write(df.head())
 
-        # st.write("Training Set Data : ")
-        # st.dataframe(df_TR)
-        # st.write("Testing Set Data : ")
-        # st.dataframe(df_TS)
-        # In[4]:
+        # In[ ]:
 
+        # In[ ]:
 
+        # In[ ]:
 
-        # In[8]:
+        # In[ ]:
+
+        # In[3]:
 
         # Traning Sets
-        y_df_TR = df_TR['pKd']
-        X_df_TR = df_TR.drop(['PDB_ID', 'Resolution', 'pKd'], axis=1)
+        X = df.iloc[:, [1, 2]]
+        Y = df2.iloc[:, 1]
 
         # In[9]:
 
-        # X_df_TR.shape, y_df_TR.shape
+        # In[4]:
 
-        # In[10]:
+        X_train, X_valid, Y_train, Y_valid = train_test_split(X, Y, test_size=0.2, random_state=123456)
 
-        X_train, X_valid, Y_train, Y_valid = train_test_split(X_df_TR, y_df_TR, test_size=0.2,random_state=123456)
+        # In[ ]:
 
-        # In[11]:
-
-        # Test Sets
-        y_df_TS = df_TS['pKd']
-        X_df_TS = df_TS.drop(['PDB_ID', 'Resolution', 'pKd'], axis=1)
-
-        # In[12]:
+        # In[ ]:
 
         # # Optimized parameters
         # ## max_features = 'auto'
         # ## n_estimators=100
         # ## random_state = 1234
 
-        # In[13]:
+        # In[5]:
 
         models_RF_train = {"RF": RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
                                                        max_features='auto', max_leaf_nodes=None,
@@ -171,7 +167,7 @@ if value == 0:
                                                        n_jobs=None, oob_score=False, random_state=1234,
                                                        verbose=0, warm_start=False)}
 
-        # In[14]:
+        # In[6]:
 
         # Calculate the Training and Validation (Refined set) statistics
         scores = {}
@@ -189,136 +185,133 @@ if value == 0:
             scores[m + "_pcc_valid"] = pearsonr(Y_valid, Y_pred_valid_rf)
 
         scores_RF_train = pd.Series(scores).T
-        # scores_RF_train
+        scores_RF_train
 
-        # In[15]:
+        # In[10]:
+
         # Calculate statistics for test set (Core set) based on RF model
         scores = {}
         for m in models_RF_train:
-            Y_pred_test_rf = models_RF_train[m].predict(X_df_TS)
-            scores[m + "_test_r2"] = r2_score(y_df_TS, Y_pred_test_rf)
-            scores[m + "_rmse_test"] = sqrt(mean_squared_error(y_df_TS, Y_pred_test_rf))
-            scores[m + "_mae_test"] = mean_absolute_error(y_df_TS, Y_pred_test_rf)
-            scores[m + "_pcc_test"] = pearsonr(y_df_TS, Y_pred_test_rf)
+            Y_pred_test_rf = models_RF_train[m].predict(X)
+            scores[m + "_test_r2"] = r2_score(Y, Y_pred_test_rf)
+            scores[m + "_rmse_test"] = sqrt(mean_squared_error(Y, Y_pred_test_rf))
+            scores[m + "_mae_test"] = mean_absolute_error(Y, Y_pred_test_rf)
+            scores[m + "_pcc_test"] = pearsonr(Y, Y_pred_test_rf)
 
         scores_RF_test = pd.Series(scores).T
-        # scores_RF_test
+        scores_RF_test
 
-        # In[16]:
+        # In[13]:
 
         # Save the test prediction result
         Pred_y = pd.DataFrame({'Y_pred_rf': Y_pred_test_rf})
-        Exp_y = pd.DataFrame(y_df_TS)
+        Exp_y = pd.DataFrame(Y)
         Prediction = pd.concat([Exp_y, Pred_y], axis=1)
-        st.title("Test Prediction Result of RandomForestRegressor.")
-        st.write(Prediction)
 
-
-        # In[34]:
+        # In[14]:
 
         YV_array = np.array(Y_valid)
         YT_array = np.array(Y_train)
         XV_array = np.array(X_valid)
         XT_array = np.array(X_train)
 
-        # In[24]:
+        # In[15]:
 
         from sklearn.neighbors import KNeighborsRegressor
 
-        knn_model = KNeighborsRegressor(n_neighbors=10)
+        knn_model = KNeighborsRegressor(n_neighbors=3)
 
-        # In[25]:
+        # In[16]:
 
         knn_model.fit(XT_array, YT_array)
 
-        # In[27]:
+        # In[17]:
 
         from sklearn.metrics import mean_squared_error
         from math import sqrt
 
-        train_preds = knn_model.predict(XV_array)
+        train_preds = knn_model.predict(XT_array)
 
-        # In[31]:
+        # In[18]:
 
         # print("KNN predicted Vlue:", train_preds)
+        st.write("KNN predicted Vlue:", train_preds)
 
-        st.title("KNN predicted Value:")
-        Pred_y = pd.DataFrame({'Y_pred_KNN': train_preds})
-        Exp_y = pd.DataFrame(y_df_TS)
-        Prediction = pd.concat([Exp_y, Pred_y], axis=1)
-        st.write(Prediction)
-        # In[33]:
+        # In[19]:
 
-        mse = mean_squared_error(YV_array, train_preds)
+        mse = mean_squared_error(YT_array, train_preds)
         rmse = sqrt(mse)
         # print("RMSE_train KNN:", rmse)
-
         st.write("RMSE_train KNN:", rmse)
 
-        # In[ ]:
+        # In[33]:
+
+        import matplotlib.pyplot as plt
+        from matplotlib.colors import ListedColormap
+        import seaborn as sns
+
+        # In[70]:
+
+        plt.plot(train_preds)
+        plt.savefig("Antigenic_Value")
+        st.image("Antigenic_Value.png")
 
         # In[ ]:
+
         st.title("\nSVM\n")
-        file_1 = st.file_uploader('protein-ligand.csv', accept_multiple_files=False)
-        file_2 = st.file_uploader('protein-ligand-test.csv', accept_multiple_files=False)
 
-        if file_1 != None and file_2!=None :
-            # Read the data
-
-            df = pd.read_csv(file_1)
-            df2 = pd.read_csv(file_2)
-
-            # !/usr/bin/env python
-            # coding: utf-8
+        # !/usr/bin/env python
+        # coding: utf-8
 
             # In[6]:
 
-            import streamlit as st
-            import numpy as np
-            import matplotlib.pyplot as plt
-            import pandas as pd
-            import numpy as np
+        import streamlit as st
+        import numpy as np
+        import matplotlib.pyplot as plt
+        import pandas as pd
+        import numpy as np
 
-            print(df.head())
-            X = df.iloc[:, [1, 2]]
-            Y = df2.iloc[:, 1]
-            print(X, Y)
-            from sklearn.model_selection import train_test_split
+        # print(df.head())
 
-            x_train, x_test, y_train, y_test = train_test_split(X, Y)
+        X = df.iloc[:, [1, 2]]
+        Y = df2.iloc[:, 1]
+        # print(X, Y)
+        from sklearn.model_selection import train_test_split
 
-            print("Training data :", x_train.shape)
-            print("Test data :", x_test.shape)
+        x_train, x_test, y_train, y_test = train_test_split(X, Y)
 
-            from sklearn.preprocessing import StandardScaler
+        # print("Training data :", x_train.shape)
+        # print("Test data :", x_test.shape)
 
-            sc_x = StandardScaler()
-            x_train = sc_x.fit_transform(x_train)
-            x_test = sc_x.fit_transform(x_test)
-            from sklearn.svm import SVC
-            from sklearn import preprocessing
+        from sklearn.preprocessing import StandardScaler
 
-            lab_enc = preprocessing.LabelEncoder()
-            train_y = lab_enc.fit_transform(y_train)
-            classifier = SVC(kernel='linear')
-            classifier.fit(x_train, train_y)
-            y_pred = classifier.predict(x_test)
-            st.write(y_pred)
-            from sklearn import metrics
+        sc_x = StandardScaler()
+        x_train = sc_x.fit_transform(x_train)
+        x_test = sc_x.fit_transform(x_test)
+        from sklearn.svm import SVC
+        from sklearn import preprocessing
 
-            test_y = lab_enc.fit_transform(y_test)
-            print(metrics.accuracy_score(test_y, y_pred))
-            plt.scatter(x_test[:, 0], x_test[:, 1], c=test_y)
-            plt.savefig("foo", dpi=100)
-            from PIL import Image
+        lab_enc = preprocessing.LabelEncoder()
+        train_y = lab_enc.fit_transform(y_train)
+        classifier = SVC(kernel='linear')
+        classifier.fit(x_train, train_y)
+        y_pred = classifier.predict(x_test)
+        st.write(y_pred)
+        from sklearn import metrics
 
-            st.image("foo.png")
+        test_y = lab_enc.fit_transform(y_test)
+        # print(metrics.accuracy_score(test_y, y_pred))
+        plt.scatter(x_test[:, 0], x_test[:, 1], c=test_y)
+        plt.savefig("foo", dpi=100)
+        from PIL import Image
 
-            # In[ ]:
+        st.image("foo.png")
 
-            # In[ ]:
+        # In[ ]:
 
-            # In[ ]:
+        # In[ ]:
+
+        # In[ ]:
 
 
 
@@ -1253,7 +1246,7 @@ elif value == 2:
         controls["VAERS_ID"] = controls.index
 
         # In[15]:
-        #
+
         m = Matcher(cases, controls, yvar="IS_AUTOIMMUNE", exclude=["VAERS_ID"])
 
         # In[ ]:

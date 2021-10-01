@@ -2,6 +2,7 @@
 primaryColor = "#f63366"
 base="light"
 backgroundColor="#e4a785"
-secondaryBackgroundColor="#343A62"
+secondaryBackgroundColor="#292f5e"
 textColor = "#262730"
 font = "sans serif"
+

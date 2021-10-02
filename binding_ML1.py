@@ -679,7 +679,7 @@ elif value == 1:
         result = calc_hopp(protein, 7)
 
         # print averaged Hopp score result, from lowest to highest
-        # print("(Avg Hopp Score Sorted, Peptide)")
+        # print("(Avg Parker Score Sorted, Peptide)")
         st.title("(Avg Hopp Score Sorted, Peptide)")
 
         # st.write(avg_score)

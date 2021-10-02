@@ -680,7 +680,7 @@ elif value == 1:
 
         # print averaged Hopp score result, from lowest to highest
         # print("(Avg Parker Score Sorted, Peptide)")
-        st.title("(Avg Hopp Score Sorted, Peptide)")
+        st.title("(Avg Parker Score Sorted, Peptide)")
 
         # st.write(avg_score)
         # for i in sorted(result, reverse=True):

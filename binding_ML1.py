@@ -699,11 +699,13 @@ elif value == 1:
         y = [x[0] for x in result[0:23]]
 
         # plot chart
-        st.title("Daigram")
+        st.title("Parker Graph")
+
+        plt.figure(1)
         plt.plot(x, y, "r-", x, y, "ro")
         plt.xlabel("Amino Acid Position")
-        plt.ylabel("Hydrophilicity Score")
-        plt.savefig("parker")
+        plt .ylabel("Hydrophilicity Score")
+        plt.savefig("parker",dpi=100)
         st.image("parker.png")
         st.title("Hopp Score")
 
@@ -827,7 +829,7 @@ elif value == 1:
         result = calc_hopps(protein_hopp, pep_length, alpha)
 
         # print averaged Hopp score result, from lowest to highest
-        st.write("(Avg Hopp Score Sorted, Peptide)")
+        st.title("(Avg Hopp Score Sorted, Peptide)")
 
         result_1 = sorted(result, reverse=True)
         st.dataframe(result_1)
@@ -839,6 +841,8 @@ elif value == 1:
         y = [x[0] for x in result[0:23]]
 
         # plot chart
+        st.title("Hopp Graph")
+        plt.figure(2)
         plt.plot(x, y, "r-", x, y, "ro")
         plt.xlabel("Amino Acid Position")
         plt.ylabel("Hydrophilicity Score")

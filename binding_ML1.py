@@ -674,12 +674,15 @@ elif value == 1:
     # provide protein seq
     # protein = input("Enter Protein Sequence ")
     protein = st.text_input("Enter Protein Sequence ")
+
+    protein_hopp=protein
     if len(protein) > 0:
+        st.title("Parker")
         # calculate averaged Hopp score
         result = calc_hopp(protein, 7)
 
         # print averaged Hopp score result, from lowest to highest
-        # print("(Avg Parker Score Sorted, Peptide)")
+        # print("(Avg Hopp Score Sorted, Peptide)")
         st.title("(Avg Parker Score Sorted, Peptide)")
 
         # st.write(avg_score)
@@ -702,6 +705,178 @@ elif value == 1:
         plt.ylabel("Hydrophilicity Score")
         plt.savefig("parker")
         st.image("parker.png")
+        st.title("Hopp Score")
+
+
+        # hopp start
+        hopp_scores = {
+            "R": 3,
+            "D": 3,
+            "E": 3,
+            "K": 3,
+            "S": 0.3,
+            "N": 0.2,
+            "Q": 0.2,
+            "G": 0,
+            "P": 0,
+            "T": -0.4,
+            "A": -0.5,
+            "H": -0.5,
+            "C": -1,
+            "M": -1.3,
+            "V": -1.5,
+            "I": -1.8,
+            "L": -1.8,
+            "Y": -2.3,
+            "F": -2.5,
+            "W": -3.4
+        }
+
+
+        def lm_hopp(pept_length, alpha):
+            """
+            Compute weights using linear variation model
+            :param pept_length: int
+                    size of the window
+            :param alpha: float between 0 (exclusive) and 1 (inclusive)
+                    edge weight
+
+            :return: list
+                    a list of weights.
+            """
+            weight_lst = []
+            if pept_length % 2 != 0:
+                for idx in range(0, pept_length):
+                    if idx <= pept_length // 2:
+                        weight = alpha + (1 - alpha) * idx / (pept_length // 2)
+                        weight = round(weight, 2)
+                        weight_lst.append(weight)
+                    else:
+                        weight = 1 - (1 - alpha) * (idx - pept_length // 2) / (pept_length // 2)
+                        weight = round(weight, 2)
+                        weight_lst.append(weight)
+            else:
+                for idx in range(0, pept_length):
+                    if idx < pept_length / 2:
+                        weight = alpha + (1 - alpha) * idx / (pept_length / 2 - 1)
+                        weight = round(weight, 2)
+                        weight_lst.append(weight)
+                    else:
+                        weight = 1 - (1 - alpha) * (idx - pept_length / 2) / (pept_length / 2 - 1)
+                        weight = round(weight, 2)
+                        weight_lst.append(weight)
+
+            return weight_lst
+
+
+        def calc_hopps(seq, pep_length, alpha=1):
+            """
+            Calculate the hopp-woods score for each peptide using the linear variation model
+            :param seq:str
+                    protein seq in one-letter code
+            :param pep_length:int
+                    size of the window (length of the peptide)
+            :param alpha: float
+                    edge weight, between 0 (exclusive) and 1 (inclusive)
+            :return:tuple
+                    a tuple (averaged hydrophilicity score, peptide seq)
+            """
+
+            # Caculate un-corrected score
+            aa_lst = list(seq)
+            resi_hopp_lst = [hopp_scores[x] for x in aa_lst]
+
+            # Caculate weights
+            weight_lst = lm_hopp(pep_length, alpha)
+            st.write("Weights used: ", end="")
+            st.write(weight_lst)
+
+            # a dictionary of {peptide_seq: averaged_hopp_score}
+            pept_score_dict = {}
+
+            # Calculate corrected score
+            for i in range(0, len(resi_hopp_lst) - pep_length + 1):
+
+                pept_score_lst = resi_hopp_lst[i:i + pep_length]
+                weighted_pept_score_lst = []
+
+                for score, weight in zip(pept_score_lst, weight_lst):
+                    weighted_score = score * weight
+                    weighted_pept_score_lst.append(weighted_score)
+
+                pept_score = sum(weighted_pept_score_lst) / (
+                    sum(weight_lst))  # sum of scores averaged over sum of weights
+                pept_seq = "".join(aa_lst[i:i + pep_length])
+                pept_score_dict[pept_seq] = pept_score
+
+            # key:value pair was switched in the turple to allow sorting by hopp score
+            return [(v, k) for k, v in pept_score_dict.items()]
+
+
+        # ## Examples of Usage
+
+        # ### Example 1: Compute Hopp-Woods Scores Without Weights (window=7, $\alpha=1$)
+
+        # In[2]:
+
+        # calculate averaged Hopp score
+
+        pep_length = st.slider("Window Size : ", 7, 9, 7)
+        alpha = st.slider("Alpha value (/=10) : ", 1, 5, 1)
+        alpha /= 10
+        result = calc_hopps(protein_hopp, pep_length, alpha)
+
+        # print averaged Hopp score result, from lowest to highest
+        st.write("(Avg Hopp Score Sorted, Peptide)")
+
+        result_1 = sorted(result, reverse=True)
+        st.dataframe(result_1)
+        # Plot desired range to show on the x axis.
+        # Recommend to change starting position to 1 instead of 0
+        x = range(1, 24)
+
+        # range of averaged hopp scores to show on y axis.
+        y = [x[0] for x in result[0:23]]
+
+        # plot chart
+        plt.plot(x, y, "r-", x, y, "ro")
+        plt.xlabel("Amino Acid Position")
+        plt.ylabel("Hydrophilicity Score")
+        plt.savefig("hopp", dpi=100)
+        st.write("Window Size = ", pep_length)
+        st.write("Alpha Value = ", alpha)
+        st.image("hopp.png")
+
+        # ## Validating against Expasy Result
+
+        # ### Validate Example 1 (no weights, window=7)
+
+        # In[6]:
+
+        # list only the first 23 in the order of the sequence
+        y_expassy = [-0.086, 0.414, 0.086, -0.300, 0.271, 0.271, -0.014, -0.300,
+                     -0.800, -0.543, -0.329, -1.014, -1.057, -0.943, -0.657,
+                     -0.843, -0.343, -0.343, -0.043, -0.000, 0.171, 0.086, 0.343,
+                     ]
+
+        # plt.figure(figsize=(12,6))
+        # plt.plot(x, y, "r-", linewidth=7, alpha=0.4)
+        # plt.plot(x, y_expassy, "b--")
+        # plt.title("Comparison of Script Result vs Expasy Result (No Weights, Window=7)")
+        # plt.xlabel("Amino Acid Position")
+        # plt.ylabel("Hydrophilicity Score of Peptide")
+        # plt.legend(["Script", "Expasy"], loc="lower right")
+
+        # plt.savefig("expassy_validate_noweights.png", dpi=300)
+
+        # ### Validate Example 2 (Weighted $\alpha=0.1$, window=7)
+
+        # In[7]:
+
+        y2_expassy = [-0.176, 0.059, 0.335, 0.379, 0.276, -0.182, -0.250, -0.018,
+                      -0.253, -0.632, -0.968, -0.994, -0.932, -0.909, -0.921, -0.738,
+                      -0.618, -0.247, -0.097, 0.344, 0.221, 0.256, 0.115
+                      ]
 
 
 

@@ -60,10 +60,10 @@ st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blo
 value=st.sidebar.slider("Slide to 1 for Binding Affinity And 2 for Antigenicity and 3 for Covid_Autoimmune",0,3,0)
 if value==0:
     st.subheader("Binding Affinity")
-    st.subheader("                and")
-    st.subheader("                   Antigenicity")
-    st.subheader("                               prediction")
-    st.subheader("                                         tool")
+    st.subheader("................and")
+    st.subheader("...................Antigenicity")
+    st.subheader("...............................prediction")
+    st.subheader(".........................................tool")
 elif value == 1:
     # !/usr/bin/env python
     # coding: utf-8

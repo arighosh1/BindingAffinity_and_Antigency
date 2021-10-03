@@ -57,8 +57,10 @@ def color_and_font(str,color):
 
 
 st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon1.jpg?raw=true")
-value=st.sidebar.slider("Slide to 0 for Binding Affinity And 1 for Antigenicity and 2 for Covid_Autoimmune",0,2,0)
-if value == 0:
+value=st.sidebar.slider("Slide to 1 for Binding Affinity And 2 for Antigenicity and 3 for Covid_Autoimmune",0,3,0)
+if value==1:
+    
+elif value == 1:
     # !/usr/bin/env python
     # coding: utf-8
 
@@ -320,7 +322,7 @@ if value == 0:
         st.image("foo.png")
 
 
-elif value == 1:
+elif value == 2:
     import streamlit as st
     # !/usr/bin/env python
     # coding: utf-8
@@ -884,7 +886,7 @@ elif value == 1:
 
 
 
-elif value == 2:
+elif value == 3:
 
 
     import pandas as pd

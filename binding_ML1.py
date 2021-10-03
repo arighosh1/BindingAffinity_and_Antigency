@@ -59,12 +59,7 @@ def color_and_font(str,color):
 st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon1.jpg?raw=true")
 value=st.sidebar.slider("Slide to 1 for Binding Affinity And 2 for Antigenicity and 3 for Covid_Autoimmune",0,3,0)
 if value==0:
-    st.subheader("Binding Affinity")
-    st.subheader("................and")
-    st.subheader("...................Antigenicity")
-    st.subheader("...............................prediction")
-    st.subheader(".........................................tool")
-    """hello                     \nchai"""
+    """Binding Affinity\n                and\n                   Antigenicity\n                               prediction\n                                         tool"""
 elif value == 1:
     # !/usr/bin/env python
     # coding: utf-8

@@ -57,8 +57,8 @@ def color_and_font(str,color):
 
 
 st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon1.jpg?raw=true")
-value=st.sidebar.slider("Slide to 0 for Introduction, 1 for Binding Affinity, 2 for Antigenicity and 3 for Covid_Autoimmune",0,3,0)
 st.write("Hi")
+value=st.sidebar.slider("Slide to 0 for Introduction, 1 for Binding Affinity, 2 for Antigenicity and 3 for Covid_Autoimmune",0,3,0)
 if value==0:
     st.title("Binding Affinity and Antigenicity Prediction Tool (BAAPT)")
     st.write("Prediction tools for binding affinity and antigenicity are currently webserver-based and do not follow a single software design pattern or reference architecture. Therefore, developing universal models and architectures that may be used as templates for the building of these prediction tools is crucial. As a result, this study explains the Binding Affinity and Antigenicity Prediction Tool (BAAPT)'s concept and pattern, as well as how it is applied to various reverse vaccinology systems. ")

@@ -59,7 +59,8 @@ def color_and_font(str,color):
 st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon1.jpg?raw=true")
 value=st.sidebar.slider("Slide to 1 for Binding Affinity And 2 for Antigenicity and 3 for Covid_Autoimmune",0,3,0)
 if value==0:
-    st.title("Binding Affinity and Antigenicity prediction tool")
+    st.title("Binding Affinity and Antigenicity Prediction Tool (BAAPT)")
+    st.write("Prediction tools for binding affinity and antigenicity are currently webserver-based and do not follow a single software design pattern or reference architecture. Therefore, developing universal models and architectures that may be used as templates for the building of these prediction tools is crucial. As a result, this study explains the Binding Affinity and Antigenicity Prediction Tool (BAAPT)'s concept and pattern, as well as how it is applied to various reverse vaccinology systems. ")
 elif value == 1:
     # !/usr/bin/env python
     # coding: utf-8
@@ -101,7 +102,7 @@ elif value == 1:
     import numpy as np
     import requests
 
-    st.title("Binding Affinity.")
+    st.title("Binding Affinity")
     st.write("The strength of the binding interaction between a single biomolecule (e.g., protein or DNA) and its ligand/binding partner is referred to as binding affinity (e.g., drug or inhibitor). The equilibrium dissociation constant (KD), which is used to evaluate, and rank order the strengths of bimolecular interactions, is commonly used to measure and report binding affinity. The lower the KD value, the greater the ligand's affinity for its target. The higher the KD value, the weaker the attraction and binding of the target molecule and ligand.")
     st.write("Non-covalent intermolecular interactions such as hydrogen bonding, electrostatic interactions, hydrophobic and Van der Waals forces between the two molecules all influence binding affinity. Furthermore, the presence of other molecules may affect the binding affinity of a ligand to its target molecule.")
     st.image("before_method.jpg")
@@ -192,7 +193,7 @@ elif value == 1:
             scores[m + "_rmse_valid"] = sqrt(mean_squared_error(Y_valid, Y_pred_valid_rf))
             scores[m + "_mae_valid"] = mean_absolute_error(Y_valid, Y_pred_valid_rf)
             scores[m + "_pcc_valid"] = pearsonr(Y_valid, Y_pred_valid_rf)
-        st.title("RandomForest Values")
+        st.title("Random Forest Predicted Values")
         scores_RF_train = pd.Series(scores).T
         scores_RF_train
 
@@ -243,8 +244,8 @@ elif value == 1:
 
         # In[18]:
 
-        # print("KNN predicted Vlue:", train_preds)
-        st.title("KNN predicted Value:")
+        # print("KNN Predicted Values:", train_preds)
+        st.title("KNN Predicted Values:")
         st.write( train_preds)
 
         # In[19]:
@@ -266,7 +267,7 @@ elif value == 1:
         # plt.savefig("Antigenic_Value")
         # st.image("Antigenic_Value.png")
 
-        st.title("\nSVM\n")
+        st.title("\nSVM Predicted Values\n")
 
         # if(df==new_df):
         #     st.write("Same")
@@ -897,7 +898,7 @@ elif value == 3:
     import warnings
     from IPython.testing.globalipapp import get_ipython
     import streamlit as st
-
+    st.write("This study looks at the long-term consequences of immunization. It investigates a group of unfavorable occurrences known as 'autoimmune diseases,' which involve the immune system attacking its own cells and include LLD, rheumatoid arthritis, and Crohn's disease. The following types of adverse occurrences are considered. Autoimmunity is a serious issue for COVID-19 vaccination recipients. Autoimmune illnesses are unpleasant, long-lasting, and can reduce a person's earning potential. Certain autoimmune diseases can be deadly or severe in rare circumstances. We used the Vaccine Adversity Reporting System (VAERS) input data set (1990-2021). It's a countrywide early warning system for possible security concerns with American vaccinations. The results demonstrate that the COVID-19 vaccination is safe for those with autoimmune diseases. When a person reports a safety signal, the risk of receiving a COVID-19 vaccination is only twice as high as when a person receives a non-COVID-19 vaccine. It's important to note that the link isn't causative. These investigations do not establish a cause; rather, they aid in the identification of possible issues that may be investigated further using other approaches.")
 
     tqdm.pandas()
 

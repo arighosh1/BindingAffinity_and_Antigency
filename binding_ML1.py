@@ -70,9 +70,11 @@ if value==0:
     st.write("Q: How can we get the sample dataset for Binding Affinity, protein sequence for Antigenicity, and vaccine data for Autoimmunity prediction?")
     st.write("🎈Binding Affinity:")
     st.write("🎈Antigenicity:")
-    st.write("🎈🎈🎈Protein Sequence: https://www.ncbi.nlm.nih.gov/protein/YP_009724390.1?report=fasta 🎈🎈🎈AntiRNA Antibodies: https://www.uniprot.org/blast/uniprot/B20211004F248CABF64506F29A91F8037F07B67D10159C09")
+    st.write("🎈🎈🎈Protein Sequence: https://www.ncbi.nlm.nih.gov/protein/YP_009724390.1?report=fasta")
+    st.write("🎈🎈🎈AntiRNA Antibodies: https://www.uniprot.org/blast/uniprot/B20211004F248CABF64506F29A91F8037F07B67D10159C09")
     st.write("🎈Autoimmunity:")
-    st.write("🎈🎈🎈VAERS Data: https://vaers.hhs.gov/data/datasets.html 🎈🎈🎈VAERS Data Use Guide: https://vaers.hhs.gov/docs/VAERSDataUseGuide_en_September2021.pdf")
+    st.write("🎈🎈🎈VAERS Data: https://vaers.hhs.gov/data/datasets.html")
+    st.write("🎈🎈🎈VAERS Data Use Guide: https://vaers.hhs.gov/docs/VAERSDataUseGuide_en_September2021.pdf")
 elif value == 1:
     # !/usr/bin/env python
     # coding: utf-8

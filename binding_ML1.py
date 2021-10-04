@@ -934,7 +934,12 @@ elif value == 3:
     vac = st.file_uploader("Enter your (VAX FILE) : ")
     rec = st.file_uploader("Enter your (DATA FILE) : ")
     sym = st.file_uploader("Enter your (SYMPTOMS FILE) : ")
-    st.write("Method: ")
+    st.write("Remember that positive predictive value (PPV) varies with disease prevalence when interpreting results from diagnostic tests. Prevalence is a measure of how common a disease is in a specified at-risk population at a specific time point or period. PPV is the percent of positive test results that are true positives. As disease prevalence decreases, the percent of test results that are false positives increase.
+For example, a test with 98% specificity would have a PPV of just over 80% in a population with 10% prevalence, meaning 20 out of 100 positive results would be false positives.
+The same test would only have a PPV of approximately 30% in a population with 1% prevalence, meaning 70 out of 100 positive results would be false positives.  This means that, in a population with 1% prevalence, only 30% of individuals with positive test results actually have the disease.
+At 0.1% prevalence, the PPV would only be 4%, meaning that 96 out of 100 positive results would be false positives.
+Health care providers should take the local prevalence into consideration when interpreting diagnostic test results.
+Consider positive results in combination with clinical observations, patient history, and epidemiological information. ")
     if(vac!=None and rec!=None and sym!=None):
         vax_frames = []
 

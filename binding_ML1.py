@@ -934,6 +934,7 @@ elif value == 3:
     vac = st.file_uploader("Enter your (VAX FILE) : ")
     rec = st.file_uploader("Enter your (DATA FILE) : ")
     sym = st.file_uploader("Enter your (SYMPTOMS FILE) : ")
+    st.write("Method: ")
     if(vac!=None and rec!=None and sym!=None):
         vax_frames = []
 

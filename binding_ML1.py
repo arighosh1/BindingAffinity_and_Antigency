@@ -57,7 +57,7 @@ def color_and_font(str,color):
 
 
 st.sidebar.image("https://github.com/arighosh1/BindingAffinity_and_Antigency/blob/main/icon1.jpg?raw=true")
-st.write("Hi")
+st.sidebar.write("Hi")
 value=st.sidebar.slider("Slide to 0 for Introduction, 1 for Binding Affinity, 2 for Antigenicity and 3 for Covid_Autoimmune",0,3,0)
 if value==0:
     st.title("Binding Affinity and Antigenicity Prediction Tool (BAAPT)")

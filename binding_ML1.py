@@ -939,7 +939,7 @@ elif value == 3:
     st.write("The same test would only have a PPV of approximately 30% in a population with 1% prevalence, meaning 70 out of 100 positive results would be false positives.  This means that, in a population with 1% prevalence, only 30% of individuals with positive test results actually have the disease.")
     st.write("At 0.1% prevalence, the PPV would only be 4%, meaning that 96 out of 100 positive results would be false positives.")
     st.write("Health care providers should take the local prevalence into consideration when interpreting diagnostic test results.")
-    st.write("Consider positive results in combination with clinical observations, patient history, and epidemiological information.")")
+    st.write("Consider positive results in combination with clinical observations, patient history, and epidemiological information.")
     st.write("A false negative is a test result that is wrong, because it indicates the person is not infected when they really are, or that they don’t have antibodies when they actually do.")
     st.write("A false positive is a test result that is wrong, because it indicates the person is infected when they really are not or that they have antibodies when they really don’t.")
     if(vac!=None and rec!=None and sym!=None):

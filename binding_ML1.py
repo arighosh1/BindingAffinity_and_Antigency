@@ -64,6 +64,7 @@ st.sidebar.write("Aritra Ghosh")
 if value==0:
     st.title("Binding Affinity and Antigenicity Prediction Tool (BAAPT)")
     st.write("Prediction tools for binding affinity and antigenicity are currently webserver-based and do not follow a single software design pattern or reference architecture. Therefore, developing universal models and architectures that may be used as templates for the building of these prediction tools is crucial. As a result, this study explains the Binding Affinity and Antigenicity Prediction Tool (BAAPT)'s concept and pattern, as well as how it is applied to various reverse vaccinology systems. ")
+    st.write("Below are the detail description of the dataset preparation, and reference publications")
 elif value == 1:
     # !/usr/bin/env python
     # coding: utf-8

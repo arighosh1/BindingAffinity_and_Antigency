@@ -698,12 +698,7 @@ elif value == 2:
         st.title("Parker")
         # calculate averaged Hopp score
         result = calc_hopp(protein, 7)
- # calculate averaged Hopp score
 
-        pep_length = st.slider("Window Size : ", 7, 9, 7)
-        alpha = st.slider("Alpha value (/=10) : ", 1, 5, 1)
-        alpha /= 10
-        result = calc_hopps(protein_hopp, pep_length, alpha)
 
         # print averaged Hopp score result, from lowest to highest
         # print("(Avg Hopp Score Sorted, Peptide)")

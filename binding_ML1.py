@@ -871,36 +871,22 @@ elif value == 2:
 
         # ## Validating against Expasy Result
 
-        # ### Validate Example 1 (no weights, window=7)
-
-        # In[6]:
-
-        # list only the first 23 in the order of the sequence
-        y_expassy = [-0.086, 0.414, 0.086, -0.300, 0.271, 0.271, -0.014, -0.300,
-                     -0.800, -0.543, -0.329, -1.014, -1.057, -0.943, -0.657,
-                     -0.843, -0.343, -0.343, -0.043, -0.000, 0.171, 0.086, 0.343,
-                     ]
-
-        # plt.figure(figsize=(12,6))
-        # plt.plot(x, y, "r-", linewidth=7, alpha=0.4)
-        # plt.plot(x, y_expassy, "b--")
-        # plt.title("Comparison of Script Result vs Expasy Result (No Weights, Window=7)")
-        # plt.xlabel("Amino Acid Position")
-        # plt.ylabel("Hydrophilicity Score of Peptide")
-        # plt.legend(["Script", "Expasy"], loc="lower right")
-
-        # plt.savefig("expassy_validate_noweights.png", dpi=300)
-
-        # ### Validate Example 2 (Weighted $\alpha=0.1$, window=7)
-
         # In[7]:
 
-        y2_expassy = [-0.176, 0.059, 0.335, 0.379, 0.276, -0.182, -0.250, -0.018,
+        y_expassy = [-0.176, 0.059, 0.335, 0.379, 0.276, -0.182, -0.250, -0.018,
                       -0.253, -0.632, -0.968, -0.994, -0.932, -0.909, -0.921, -0.738,
                       -0.618, -0.247, -0.097, 0.344, 0.221, 0.256, 0.115
                       ]
 
+plt.figure(figsize=(12,6))
+plt.plot(x, y, "r-", linewidth=7, alpha=0.4)
+plt.plot(x, y_expassy, "b--")
+plt.title("Comparison of Script Result vs Expasy Result (alpha=0.1, Window=7)")
+plt.xlabel("Amino Acid Position")
+plt.ylabel("Hydrophilicity Score of Peptide")
+plt.legend(["Script", "Expasy"], loc="lower right")
 
+#plt.savefig("expassy_validate_weighted.png", dpi=300)
 
 elif value == 3:
 

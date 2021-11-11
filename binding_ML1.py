@@ -1474,7 +1474,7 @@ elif value == 3:
 
         m = Matcher(cases, controls, yvar="IS_AUTOIMMUNE", exclude=["VAERS_ID"])
 
-        # In[ ]:
+       
 
 
 

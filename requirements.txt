@@ -79,7 +79,7 @@ backcall==0.2.0
 base58==2.1.0
 beautifulsoup4==4.9.3
 bel-resources==0.0.3
-bio==0.5.0
+bio==1.3.2
 biopython==1.79
 bioregistry==0.2.6
 bioversions==0.2.0

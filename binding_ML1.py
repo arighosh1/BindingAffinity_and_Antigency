@@ -187,7 +187,7 @@ elif value == 1:
 
         models_RF_train = {"RF": RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
                                                        max_features='auto', max_leaf_nodes=None,
-                                                       min_impurity_decrease=0.0, min_impurity_split=None,
+                                                       min_impurity_decrease=0.0,
                                                        min_samples_leaf=1, min_samples_split=2,
                                                        min_weight_fraction_leaf=0.0, n_estimators=100,
                                                        n_jobs=None, oob_score=False, random_state=1234,
@@ -210,7 +210,7 @@ elif value == 1:
             scores[m + "_mae_valid"] = mean_absolute_error(Y_valid, Y_pred_valid_rf)
             scores[m + "_pcc_valid"] = pearsonr(Y_valid, Y_pred_valid_rf)
         st.title("Random Forest Predicted Values")
-        scores_RF_train = pd.Series(scores).T
+        scores_RF_train = pd.DataFrame(scores).T
         scores_RF_train
 
         # In[10]:
@@ -224,7 +224,7 @@ elif value == 1:
             scores[m + "_mae_test"] = mean_absolute_error(Y, Y_pred_test_rf)
             scores[m + "_pcc_test"] = pearsonr(Y, Y_pred_test_rf)
 
-        scores_RF_test = pd.Series(scores).T
+        scores_RF_test = pd.DataFrame(scores).T
         scores_RF_test
 
         # In[13]:
